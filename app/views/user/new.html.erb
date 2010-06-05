@@ -1,0 +1,16 @@
+<% form_for (:user, @user, :url => url_for(:action => "create")) do |f| %>
+	<%= f.error_messages %>
+
+<div id="authboxhead2">Create a New Administrative User</div><!-- authboxhead -->
+<div id="authbox2">
+	<br />
+	<%= f.label :username, "Username:" %> <%= f.text_field :username %><br /><br />
+	<%= f.label :password, "Password:" %> <%= f.password_field :password %><br /><br />
+	<%= f.label :psddword_confirmation, "Retype Password:" %><%= f.password_field :password_confirmation %><br /><br />
+	<%= submit_tag("Create Administrator")%>
+<%end%>
+</div><!-- authbox -->
+
+<hr />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to("Cancel", url_for(:controller => "countries", :action => "index")) %>
+	

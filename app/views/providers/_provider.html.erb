@@ -1,0 +1,13 @@
+<tr>
+  <td>
+    <%= link_to provider.name, country_provider_url(@country, provider), :method => :get %>
+  </td>
+  <% if session[:user_id] %>
+    <td>
+      <span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to "Edit", edit_country_provider_url(@country, provider), :method => :get %></span>
+</td>
+<td>
+      <span style="color:#ff0000; font-weight:bold;font-size: 16px;">&#215;</span> <%= link_to "Delete", country_provider_url(@country, provider), :method => :delete, :confirm => "Are you sure you want to delete this provider?"%></span>
+    </td>
+  <% end %>
+</tr>

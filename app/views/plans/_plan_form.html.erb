@@ -1,0 +1,90 @@
+<% form_for([@country, @provider, @plan]) do |f| %>
+  <%= f.error_messages %>
+  <br />
+	<label>Plan<br />
+	<span class="small">Name</span>
+	</label><br />
+	<%= f.text_field :name %><br />
+	
+	<label>Plan Type<br />
+	<span class="small">Please Choose</span>
+	</label><br />
+	<%= f.select :plan_type, %w( Prepaid Postpaid ) %><br />
+	
+	<label>Low-end Equipment<br />
+		<span class="small">Product</span>
+	</label><br />
+	<%= f.text_field :lowproduct %><br />
+	<br />
+	<label>
+ 		<span class="small">Cost in <%= @country.currency %></span>
+ 	</label>
+	<%= f.text_field :lowcost %><br / >
+	
+	<label>High-end Equipment<br />
+		<span class="small">Product</span>
+	</label><br />
+	<%= f.text_field :highproduct %><br />
+	<label>
+   		<span class="small">Cost in <%= @country.currency %></span>
+   	</label>
+	<%= f.text_field :highcost %><br />
+	
+	<label>Plan Cost<br />
+		<span class="small">(Monthly/otherwise) in <%= @country.currency %></span>
+	</label><br />
+	<%= f.text_field :cost %><br />
+	
+	<label>
+ 		<span class="small">Usage Allowance</span>
+ 	</label>
+	<%= f.text_field :usage %><%= f.select :usage_unit, @speed_units %><br />
+	
+	<label>
+   		<span class="small">Daytime Usage Allowance</span>
+   	</label>
+	<%= f.text_field :day %><%= f.select :day_usage_unit, @speed_units %><br />
+	<label>
+   		<span class="small">Night Usage Allowance</span>
+   	</label>
+	<%= f.text_field :night %><%= f.select :night_usage_unit, @speed_units %><br />
+	
+	<label>Incremental Charge<br />
+		<span class="small">Cost in <%= @country.currency %></span>
+	</label><br />
+	<%= f.text_field :overage %><br />
+	
+	<label>Daily Charge<br />
+		<span class="small">(optional, Incremental) Cost in <%= @country.currency %> per day</span>
+	</label><br />
+	<%= f.text_field :dayoverage %><br />
+	
+	<br />
+	
+	<label>Charge Unit<br />
+	  <span class="small">Unit for overage charges (Incremental)</span>
+	</label><br />
+	<%= f.select :incremental_unit, @speed_units %><br />
+	
+	<br />
+	
+	<label>Taxes<br />
+   		<span class="small">Percentage</span>
+   	</label><br />
+	<%= f.text_field :tax %><br />
+	
+	<label>Connection Speed<br />
+		<span class="small">Speed in selected unit</span>
+	</label><br />
+	<%= f.text_field :speed %><%= f.select :speed_unit, @speed_units %><br />
+	
+	<br />
+	
+	<label>Plan Description<br />
+   		<span class="small">Write a brief description</span>
+   	</label><br />
+	<%= f.text_field :description %>
+	
+  <p><%= f.submit "#{action.capitalize} Plan" %></p>
+
+<%end%>

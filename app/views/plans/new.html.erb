@@ -1,0 +1,7 @@
+<div id="newcountryboxhead">Add a New <%= @provider.provider_type.capitalize %> Plan for This Provider</div><!-- newcountryboxhead -->
+<div id="newcountrybox">
+<%= render :partial => 'plan_form', :locals => {:action => 'create'} %>
+</div><!-- newcountryprofile -->
+
+<hr />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to "Cancel", country_provider_url(@country, @provider), :method => :get %>

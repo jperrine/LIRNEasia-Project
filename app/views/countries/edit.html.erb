@@ -1,0 +1,9 @@
+<div id="editcountryboxhead">Edit This Country Profile</div><!-- editcountryboxhead -->
+<div id="editcountrybox">
+  <%= render :partial => 'country_form', :locals => {:action => 'Update'} %>
+</div><!-- editcountrybox -->
+
+<hr />
+
+<span style="color:#ff00ff; font-weight:bold;font-size: 12px;">&#9658;</span> <%= link_to 'View Country Profile', @country %><br />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to 'Cancel (Return Home)', countries_path %>

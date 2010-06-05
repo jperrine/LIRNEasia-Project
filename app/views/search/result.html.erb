@@ -1,0 +1,30 @@
+<!--[if IE]><%= javascript_include_tag "lib/excanvas" %><![endif]-->
+<%= javascript_include_tag "flotr-0.2.0-alpha" %>
+<script type="text/javascript">
+  document.observe('dom:loaded', function() {
+    //data is structured to be an array of arrays    
+    Flotr.draw($('placeholder'), [
+      {
+        data: [[0,0]]//sets x,y origin to 0
+      },
+      <% @graph.each do |plan, values| %>
+        { data: [
+        <% values.each do |usage, cost| %>
+          [<%= usage %>, <%= cost %>],
+        <% end %>
+        ]
+      , label: "<%= plan %>"},    
+      <% end %>
+    ], {
+        lines: { show: true },
+        legend: { position: 'nw'},
+        xaxis: { title: "Usage Amount (in MB)" },
+        yaxis: { title: "Cost" }
+    });
+  });
+</script>
+<div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
+</div>
+<br />
+
+<%= link_to "Back to Search", url_for(:action => 'index')%>

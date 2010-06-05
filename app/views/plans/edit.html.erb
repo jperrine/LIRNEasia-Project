@@ -1,0 +1,7 @@
+<div id="editcountryboxhead">Edit "<%=h @plan.name %>" Plan</div><!-- editcountryboxhead -->
+<div id="editcountrybox">
+  <%= render :partial => 'plan_form', :locals => {:action => 'update'} %>
+</div><!-- newcountryprofile -->
+
+<hr />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to "Cancel", country_provider_url(@country, @provider), :method => :get %>

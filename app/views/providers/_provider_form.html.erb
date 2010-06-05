@@ -1,0 +1,43 @@
+<% form_for :provider, @provider, :url => url_for(:action => 'create') do |s| %>
+  <br />
+  <%= s.error_messages %>
+	
+	<label>New Provider<br />
+		<span class="small">Name</span>
+	</label><br />
+	<%= s.text_field :name %><br /><br />
+	
+	<label>Provider Type<br />
+		<span class="small">Type</span>
+	</label><br />
+	<%= s.select :provider_type, %w( Mobile Fixed) %><br /><br />
+	
+	<label>Installation (If fixed provider)<br />
+		<span class="small">Cost in <%= @country.currency %></span>
+	</label><br />
+	<%= s.text_field :installation %><br /><br />	
+	
+	<label>Low-end Equipment<br />
+	  <span class="small">Product</span>
+	</label><br />
+	<%= s.text_field :lowproduct %><br />		
+	
+	<label>
+		<span class="small">Cost in <%= @country.currency %></span>
+	</label>
+	<%= s.text_field :lowcost %><br /><br />		
+	
+	<label>High-end Equipment<br />
+		<span class="small">Product</span>
+	</label><br />
+	<%= s.text_field :highproduct %><br />
+	
+	<label>
+		<span class="small">Cost in <%= @country.currency %></span>
+	</label>
+	<%= s.text_field :highcost %><br />
+	
+	<p style="text-align:center;">
+  	<%= s.submit "#{action} Provider"%>
+	</p>
+<%end%>

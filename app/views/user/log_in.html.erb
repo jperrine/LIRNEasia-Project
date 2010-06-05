@@ -1,0 +1,13 @@
+<div id="authboxhead">Please Log In to Continue</div><!-- authboxhead -->
+<div id="authbox">
+	<% form_tag(url_for(:action => "do_login"), :method => "post") do %>
+	<br />
+	<label>Username:</label><%= text_field_tag("username") %><br /><br />
+	<label>Password:</label><%= password_field_tag("password") %><br /><br />
+	<%= submit_tag("Login") %>
+	<% end %>
+</div><!-- authbox -->
+
+<hr />
+<span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new"))%><br />
+<span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to 'Return Home', countries_path %>

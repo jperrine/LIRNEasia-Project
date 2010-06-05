@@ -1,0 +1,37 @@
+<!--[if IE]><%= javascript_include_tag "lib/excanvas" %><![endif]-->
+<%= javascript_include_tag "flotr-0.2.0-alpha" %>
+<script type="text/javascript">
+  document.observe('dom:loaded', function() {
+  
+  Flotr.draw(
+    $('placeholder'),
+    [
+      {
+        data: [[0,0]]//sets origin to 0,0
+      },
+      <% counter = 1 %>
+      <% @plans.each do |plan, cost| %>
+        {
+          data: [[<%= counter %> , <%= cost %> ]], 
+          label: "<%= plan %>"
+        },
+        <% counter += 1 %>
+      <% end %>
+      {
+        data: [[<%= counter %>, <%= @highcost %>]]//find max cost and set 100 to that, to give the graph some depth
+      }
+    ],
+    {
+      bars: { show: true, barWidth: 0.5 },
+      legend: { position: 'nw' },
+      xaxis: { title: "Plans" },
+      yaxis: { title: "Cost" }
+    }
+  );
+  });		
+</script>
+
+<div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
+</div>
+
+<%= link_to "Back to search", url_for(:action => 'index') %>

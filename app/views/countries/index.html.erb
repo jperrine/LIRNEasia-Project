@@ -1,0 +1,32 @@
+<% if session[:user_id]%>
+<p class="welcomeadmin">Hello!  Welcome back!  Please select a country to continue.</p>
+<% else %>
+<p class="welcome">Hello!  Welcome to the LIRNEasia application!  Please select a country or login to continue.</p>
+<%end%>
+<table id="hometable">
+  <tr>
+	<th colspan="3">Available Countries</th>
+  </tr>
+
+	<% for country in @countries %>
+	<tr>		
+	  <td><%= link_to country.country, country %></td>
+	    <% if session[:user_id]%>
+	  <td><span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to 'Edit', edit_country_path(country) %></td>
+	  <td><span style="color:#ff0000; font-weight:bold;font-size: 16px;">&#215;</span> <%= link_to 'Delete', country, :confirm => 'Are you sure you want to delete country?', :method => :delete %> </td>
+		<%end%>
+	</tr>
+	<%end%>
+	</table>
+<% if session[:user_id] %>
+<div id="addcountry"><span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to 'Add a New Country', new_country_path %></div>
+<%end%>
+<% if session[:user_id]%>
+<div id="logout"><%= link_to "Log Out", url_for(:controller => "user", :action => "log_out")%></div><!-- logout -->
+<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  Click "Edit" to change the name of a country, its currency, or the current conversion rate to US Dollars.  To remove a country from the list, click "Delete."  When you are finished making changes, click the <span style="color: #ff0000;">red</span> button to log out.</div><!-- aboutpage -->
+<% else %>
+<br />
+<div id="login"><%= link_to "Log In", url_for(:controller => "user", :action => "log_in")%></div><!-- login -->
+<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> button to log in.</div><!-- aboutpage -->
+	<%end%>
+

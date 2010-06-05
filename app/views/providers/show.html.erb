@@ -1,0 +1,37 @@
+<h1 class="provider"><%=h @provider.name %></h1>
+<div class="tag">Viewing <%= @provider.provider_type %> Provider Profile in <%=h @country.country %></div><!-- class is tag -->
+<table id="plans">
+
+	<tr><th colspan="3">Plans Available From This Provider</th></tr>
+	
+	<% if @provider.plans.empty? %>
+	
+  	<tr><td class="none">No plans yet.</td></tr>
+
+	<%else%>
+	
+	<%= render :partial => 'plans/plan', :collection => @provider.plans %>
+
+	<%end%>
+	
+</table>
+
+<div id="addprovider">
+	<% if session[:user_id]%>	
+	  <span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to "Add New Plan", url_for(:controller => 'plans', :action => 'new', :country_id => @country.id, :provider_id => @provider.id) %><br />
+<%end%>
+</div><!-- addprovider -->
+<br /><br /><br />
+
+<hr />
+<span style="color:#ff00ff; font-weight:bold;font-size: 12px;">&#9658;</span> <%= link_to "Return to the List of Providers", country_url(@country) %><br />
+<span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to "Return Home", countries_url %>
+
+<% if session[:user_id]%>	
+	<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a plan name to view a detailed description of the features of that plan.  Click "Edit" to change the name of a plan or the costs and descriptions of its features.  To remove a plan from the list, click "Delete."  When you are finished making changes, you may return to the <%= link_to 'Home', countries_path %> page to choose a different country or log out.</div><!-- aboutpage -->
+
+<% else %>
+
+	<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a plan name to view a detailed description of the features of that plan.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> button on the <%= link_to 'Home', countries_path %> page to log in.</div><!-- aboutpage -->
+
+<%end%>

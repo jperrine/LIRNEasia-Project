@@ -1,0 +1,79 @@
+<h1 class="provider"><%= @provider.name %></h1>
+<div class="tag">Viewing plan data for this provider in <%= @country.country %>.</div><!-- class is tag -->
+
+<table id="plandetails">
+<tr><th colspan="3">"<%=h @plan.name %>" Plan</th></tr>
+<tr><th width="70%">Feature</th><th>Item</th><th>Cost or Value</th></tr>
+<tr>
+	<td>Low-end Equipment</td>
+	<td><%=h @plan.lowproduct %></td>
+	<td><%=h @plan.lowcost %> <%=h @country.currency %></td>
+</tr>
+<tr>
+	<td>High-end Equipment</td>
+	<td><%=h @plan.highproduct %></td>
+	<td><%=h @plan.highcost %> <%=h @country.currency %></td>
+</tr>
+<tr>
+  <td>Plan Type</td>
+  <td>&nbsp;</td>
+  <td><%=h @plan.plan_type %> </td>
+</tr>
+<tr>
+	<td>Plan Cost</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.cost %> <%=h @country.currency %></td>
+</tr>
+<tr>
+	<td>Data Use Allowance</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.usage %> <%= @plan.usage_unit %></td>
+</tr>
+<tr>
+	<td>Daytime Usage Allowance (if applicable)</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.day %> <%= @plan.day_usage_unit %></td>
+</tr>
+<tr>
+	<td>Nighttime Usage Allowance (if applicable)</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.night %> <%= @plan.night_usage_unit %></td>
+</tr>
+<tr>
+	<td>Incremental Charge (if applicable)</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.overage %> <%=h @country.currency %> per <%= @plan.incremental_unit %></td>
+</tr>
+<tr>
+  <td>Daily Incremental Charge (if applicable)</td>
+  <td>&nbsp;</td>
+  <td><%=h @plan.dayoverage %> <%=h @country.currency %> per day per <%= @plan.incremental_unit %></td>
+</tr>
+<tr>
+	<td>Tax</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.tax %></td>
+</tr>
+<tr>
+	<td>Speed of Connection</td>
+	<td>&nbsp;</td>
+	<td><%=h @plan.speed %> <%= @plan.speed_unit %>/sec</td>
+</tr>
+<tr>
+	<td>Plan Description (Comments)</td>
+	<td colspan="2"><%=h @plan.description %></td>
+</tr>
+
+</table>
+
+<%if session[:user_id]%>
+
+<span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to "Edit This Plan", edit_country_provider_plan_url(@country, @provider, @plan) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="color:#ff0000; font-weight:bold;font-size: 16px;">&#215;</span> <%= link_to "Delete This Plan", country_provider_plan_url(@country, @provider, @plan), :confirm => "Are you sure you want to delete this plan?", :method => :delete %><br />
+<%end%>
+<br /><br />
+<hr />
+<span style="color:#ff00ff; font-weight:bold;font-size: 12px;">&#9658;</span> <%= link_to "Return to the List of Plans", country_provider_url(@country, @provider)%><br />
+<span style="color:#ff00ff; font-weight:bold;font-size: 12px;">&#9658;</span> <%= link_to "Return to the List of Providers", country_url(@country) %><br />
+<span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to "Return Home", countries_url %>

@@ -1,0 +1,7 @@
+<div id="newcountryboxhead">Add a New Country</div><!-- newcountryboxhead -->
+<div id="newcountrybox">
+  <%= render :partial => 'country_form', :locals => {:action => 'Add'}%>
+</div><!-- newcountrybox -->
+
+<hr />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to 'Cancel', countries_path %>

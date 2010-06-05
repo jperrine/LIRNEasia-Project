@@ -1,0 +1,58 @@
+<h1 class='country'><%=h @country.country %></h1>
+<div class="tag">Viewing Country Profile</div><!-- class is tag -->
+
+<table id="mobileproviders">
+	
+	<tr><th colspan="3">Mobile Providers</th></tr>
+	
+	<% if @mobile_providers.empty? %>
+	
+  		<tr><td class="none">No providers yet.</td></tr>
+	
+	<%else%>
+	
+		<%= render :partial => 'providers/provider', :collection => @mobile_providers %>
+	
+	<%end%>
+
+</table>
+
+
+<table id="fixedproviders">
+	<tr><th colspan="3">Fixed Providers</th></tr>
+	
+	<% if @fixed_providers.empty? %>
+	
+  		<tr><td class="none">No providers yet.</td></tr>
+	
+	<%else%>	
+  	
+		<%= render :partial => 'providers/provider', :collection => @fixed_providers %>
+	
+	<%end%>
+
+</table>  
+
+<br /><br />
+<div id="addprovider">
+	<% if session[:user_id]%>	
+	  <span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to "Add a New Provider", new_country_provider_url(@country) %>
+<% end %>
+</div><!-- addprovider -->
+
+<br /><br /><br /><br />
+
+<hr />
+  <% if session[:user_id] %>
+	<span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to 'Edit This Country Profile', edit_country_path(@country) %></span><br />
+	<% end %>
+	<span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to 'Return Home', countries_path %>
+
+<% if session[:user_id]%>	
+	<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a provider name to view a list of data plans available from that provider.  Click "Edit" to change the name of a provider or the costs and descriptions of its equipment.  To remove a provider from the list, click "Delete."  When you are finished making changes, you may return to the <%= link_to 'Home', countries_path %> page to choose a different country or log out.</div><!-- aboutpage -->
+
+<% else %>
+
+	<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a provider name to view a list of data plans available from that provider.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> button on the <%= link_to 'Home', countries_path %> page to log in.</div><!-- aboutpage -->
+
+<%end%>

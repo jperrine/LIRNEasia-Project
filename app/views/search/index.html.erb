@@ -1,0 +1,11 @@
+<%= link_to "Advanced Search", :action => "advanced" %>
+
+<% form_for :search, @countries, :url => {:action => 'do_search'} do |f| %>
+  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
+  <ul>
+    <% @countries.each do |c| %>
+      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='country[]' group="country" /> <%=h c.country %> </li>
+    <% end %>
+  </ul>
+  <%= f.submit('Search') %>
+<% end %>
