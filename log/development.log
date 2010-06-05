@@ -10553,3 +10553,44 @@ Processing CountriesController#index (for 127.0.0.1 at 2010-06-01 09:43:09) [GET
 Rendering template within layouts/application
 Rendering countries/index
 Completed in 13ms (View: 7, DB: 1) | 200 OK [http://localhost/countries]
+
+
+Processing CountriesController#index (for 127.0.0.1 at 2010-06-05 17:11:16) [GET]
+  Parameters: {"action"=>"index", "controller"=>"countries"}
+  [4;36;1mCountry Load (70.9ms)[0m   [0;1mSELECT * FROM "countries" [0m
+Rendering template within layouts/application
+Rendering countries/index
+Completed in 788ms (View: 523, DB: 71) | 200 OK [http://localhost/]
+
+
+Processing CountriesController#show (for 127.0.0.1 at 2010-06-05 17:11:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"countries"}
+  [4;35;1mCountry Load (0.2ms)[0m   [0mSELECT * FROM "countries" WHERE ("countries"."id" = 1) [0m
+  [4;36;1mProvider Load (1.1ms)[0m   [0;1mSELECT * FROM "providers" WHERE (country_id = 1 AND provider_type = 'fixed') [0m
+  [4;35;1mProvider Load (0.7ms)[0m   [0mSELECT * FROM "providers" WHERE (country_id = 1 AND provider_type = 'mobile') [0m
+Rendering template within layouts/application
+Rendering countries/show
+Rendered providers/_provider (72.8ms)
+Completed in 938ms (View: 263, DB: 2) | 200 OK [http://localhost/countries/1]
+
+
+Processing ProvidersController#show (for 127.0.0.1 at 2010-06-05 17:11:28) [GET]
+  Parameters: {"action"=>"show", "country_id"=>"1", "_method"=>"get", "authenticity_token"=>"295sh6JRERtIwp6+4s3MeKXCSO8C/QdXpl1WdUpJO6E=", "id"=>"1", "controller"=>"providers"}
+  [4;36;1mProvider Load (0.3ms)[0m   [0;1mSELECT * FROM "providers" WHERE ("providers"."id" = 1) [0m
+  [4;35;1mCountry Load (0.2ms)[0m   [0mSELECT * FROM "countries" WHERE ("countries"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering providers/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "plans" WHERE ("plans".provider_id = 1) [0m
+  [4;35;1mPlan Load (0.4ms)[0m   [0mSELECT * FROM "plans" WHERE ("plans".provider_id = 1) [0m
+Rendered plans/_plan (24.9ms)
+Completed in 322ms (View: 307, DB: 1) | 200 OK [http://localhost/countries/1/providers/1]
+
+
+Processing PlansController#show (for 127.0.0.1 at 2010-06-05 17:11:30) [GET]
+  Parameters: {"provider_id"=>"1", "action"=>"show", "country_id"=>"1", "id"=>"3", "controller"=>"plans"}
+  [4;36;1mCountry Load (0.3ms)[0m   [0;1mSELECT * FROM "countries" WHERE ("countries"."id" = 1) [0m
+  [4;35;1mProvider Load (0.3ms)[0m   [0mSELECT * FROM "providers" WHERE ("providers"."id" = 1) [0m
+  [4;36;1mPlan Load (0.5ms)[0m   [0;1mSELECT * FROM "plans" WHERE ("plans"."id" = 3) [0m
+Rendering template within layouts/application
+Rendering plans/show
+Completed in 130ms (View: 40, DB: 1) | 200 OK [http://localhost/countries/1/providers/1/plans/3]
