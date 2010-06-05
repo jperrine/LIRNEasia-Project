@@ -25,15 +25,11 @@ class CountriesController < ApplicationController
   # GET /countries/1
   def show
     @country = Country.find(params[:id])
-    #@fixed_providers, @mobile_providers = [],[]
-    @fixed_providers = Provider.find(:all,
-      :conditions => ["country_id = ? AND provider_type = ?", @country.id, "fixed"])
-    @mobile_providers = Provider.find(:all,
-      :conditions => ["country_id = ? AND provider_type = ?", @country.id, "mobile"])
-    #@country.providers.each do |p| 
-      #@fixed_providers << p if p.provider_type == "fixed"
-      #@mobile_providers << p if p.provider_type == "mobile"
-    #end
+    @fixed_providers, @mobile_providers = [],[]
+    @country.providers.each do |p| 
+      @fixed_providers << p if p.provider_type == "Fixed"
+      @mobile_providers << p if p.provider_type == "Mobile"
+    end
   end
   
   # GET /countries/1/edit
