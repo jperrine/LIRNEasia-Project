@@ -12,7 +12,6 @@ class PlansController < ApplicationController
     @country = Country.find(params[:country_id])
     @provider = Provider.find(params[:provider_id])
     @plan = Plan.new
-    @speed_units = %w( KB MB GB )
   end
   
   # POST /countries/1/providers/1/plans/create
@@ -35,7 +34,6 @@ class PlansController < ApplicationController
     @country = Country.find(params[:country_id])
     @provider = Provider.find(params[:provider_id])
     @plan = Plan.find(params[:id])
-    @speed_units = %w( KB MB GB )
   end
   
   # POST /countries/1/providers/1/plans/1/update
