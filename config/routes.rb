@@ -44,6 +44,7 @@ ActionController::Routing::Routes.draw do |map|
       provider.resources :plans 
     end
   end
+  map.resources :usage_levels
   
   map.root :controller => 'countries'
   

@@ -20,6 +20,9 @@
       <div id="navigation">
         <%= link_to "Home", url_for(:controller => 'countries') %> | 
         <%= link_to "Search", url_for(:controller => 'search') %>
+				<% if session[:user_id] %>
+					| <%= link_to "Usage levels", usage_levels_url %>
+				<% end %>
       </div>
       <% unless flash[:notice].blank? %>
          <div id="notification"><%= flash[:notice] %></div><!-- notification -->

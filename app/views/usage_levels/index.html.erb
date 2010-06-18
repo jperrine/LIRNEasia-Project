@@ -1,0 +1,7 @@
+<h3>Custom Usage Levels</h3>
+<div id="usage_levels">
+	<ul>
+		<%= render :partial => 'usage_level', :collection => @usage_levels, :as => :usage_level %>
+	</ul>
+</div>
+<%= link_to "Add Usage Level", new_usage_level_url %>

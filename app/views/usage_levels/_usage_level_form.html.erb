@@ -1,0 +1,16 @@
+<% @speed_units = %w( KB MB GB ) %>
+
+<% form_for(@usage_level) do |f| %>
+  <%= f.error_messages %>
+  <br />
+	<label>Plan<br />
+	<span class="small">Name</span>
+	</label><br />
+	<%= f.text_field :name %><br />
+	<label>
+ 		<span class="small">Usage</span>
+ 	</label>
+	<%= f.text_field :amount %><%= f.select :unit, @speed_units %><br />
+  <p><%= f.submit "#{action.capitalize} Plan" %></p>
+
+<%end%>

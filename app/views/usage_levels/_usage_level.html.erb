@@ -1,0 +1,5 @@
+<li>
+	<%= link_to h(usage_level.name), usage_level %> | 
+	<%= link_to "Edit", edit_usage_level_url(usage_level) %> | 
+	<%= link_to "Delete", usage_level, :confirm => "Are you sure you want to delete this usage level?", :method => 'delete' %>
+</li>

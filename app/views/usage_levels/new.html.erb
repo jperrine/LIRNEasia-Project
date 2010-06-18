@@ -1,0 +1,7 @@
+<div id="newcountryboxhead">New Usage Level</div>
+<div id="newcountrybox">
+  <%= render :partial => 'usage_level_form', :locals => {:action => 'create'} %>
+</div>
+
+<hr />
+<span style="color:#ff0000; font-weight:bold;font-size: 14px;">&#8709;</span> <%= link_to "Cancel", usage_levels_url %>
