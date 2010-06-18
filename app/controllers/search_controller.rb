@@ -13,15 +13,21 @@ class SearchController < ApplicationController
     #set session variables graph_code to use when building
     #data set for display
     @countries = []
+    if params[:country].nil? or params[:equip].nil?
+      flash[:notice] = "You must select a country and equipment level before you can continue."
+      redirect_to :action => 'index' and return
+    end
     params[:country].each do |c|
       @countries << c
     end
     session[:countries] = @countries
-    redirect_to :action => 'result'
+    session[:equip] = params[:equip]
+    redirect_to :action => 'result'      
   end
   
   def result
     country_ids = session[:countries]
+    equip = session[:equip]
     countries = []
     country_ids.each do |id|
       countries << Country.find(id)
@@ -31,8 +37,7 @@ class SearchController < ApplicationController
     countries.each do |country|
       country.providers.each do |port|
         port.plans.each do |plan|
-          @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan)
-          @plan = plan
+          @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
         end
       end
     end
@@ -68,14 +73,23 @@ class SearchController < ApplicationController
 	end
   
   private
-  	def generate_cost(plan, usage)
+  	def generate_cost(plan, usage, equip)
   		#assumes usage is given in MB
-  		equip_cost = 0
-      unless plan.provider.lowcost.nil?#if provider equip is nil, uses plan equip
-        equip_cost = (plan.provider.lowcost + plan.provider.highcost / 2.0) * 1.0/60.0#1/60 for 5 year cost cycle      
-      else
-        equip_cost = (plan.lowcost + plan.highcost / 2.0) * 1.0/60.0#1/60 for 5 year cost cycle
-      end
+  		equip_cost = 1
+  		if equip == 'high'
+  		  unless plan.provider.highcost.nil?
+  		    equip_cost = plan.provider.highcost 
+		    else
+		      equip_cost = plan.highcost 
+	      end
+		  else
+		    unless plan.provider.lowcost.nil?
+		      equip_cost = plan.provider.lowcost
+	      else
+	        equip_cost = plan.lowcost
+        end
+	    end
+	    equip_cost /= 60.0
       tax = plan.tax / 100.0 + 1.0
       #convert plan usage cap to mb and then compare to plan cap
       plan_usage_cap = 0
@@ -111,19 +125,19 @@ class SearchController < ApplicationController
   		converted
   	end
   	
-	  def generate_data(plan)
+	  def generate_data(plan, equip)
 	  	values = []
 	  	plan_usage_cap = convert_to_mb( plan.usage, plan.usage_unit )
 	    #generate 4 usage levels below usage cap (0%, %25, 50%, 75%)
 	    [0,1,2,4].each do |x|
 	    	usage = plan_usage_cap / 4.0 * x
-	    	cost = generate_cost(plan, usage)
+	    	cost = generate_cost(plan, usage, equip)
 	    	values << [usage, cost]
 	    end
 	    #generate 3 usage levels above usage cap (125%, 150%, 175%)
 	    [1,2,3].each do |x|
 	    	usage = plan_usage_cap + ((plan_usage_cap / 4.0) * x)
-	    	cost = generate_cost(plan, usage)
+	    	cost = generate_cost(plan, usage, equip)
 	    	values << [usage, cost]
     	end
     	values

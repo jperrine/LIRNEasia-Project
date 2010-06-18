@@ -440,6 +440,14 @@ input {
 	width: 217px;
 }
 
+input[type='radio'] {
+	width: 20px;
+}
+
+#search ul {
+	list-style: none;
+}
+
 /* The following styles pertain to form input ID's within the application and will need to be changed if the ID's are changed.  */
 
 #plan_plan_type, #provider_provider_type {

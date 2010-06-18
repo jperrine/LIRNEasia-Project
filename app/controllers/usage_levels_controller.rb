@@ -1,0 +1,2 @@
+class UsageLevelsController < ApplicationController
+end

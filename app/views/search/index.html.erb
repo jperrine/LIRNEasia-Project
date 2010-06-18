@@ -1,11 +1,17 @@
 <%= link_to "Advanced Search", :action => "advanced" %>
-
-<% form_for :search, @countries, :url => {:action => 'do_search'} do |f| %>
-  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
-  <ul>
-    <% @countries.each do |c| %>
-      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='country[]' group="country" /> <%=h c.country %> </li>
-    <% end %>
-  </ul>
-  <%= f.submit('Search') %>
-<% end %>
+<div id='search'>
+	<% form_for :search, @countries, :url => {:action => 'do_search'} do |f| %>
+	  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
+	  <ul>
+	    <% @countries.each do |c| %>
+	      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='country[]' group="country" /> <%=h c.country %> </li>
+	    <% end %>
+	  </ul>
+		<p>What equipment do you plan on using?</p>
+		<ul>
+			<li><input type='radio' value='high' name='equip' group='equip' />High end (More expensive, but better equipment)</li>
+			<li><input type='radio' value='low' name='equip' gorup='equip' />Low end (Cheaper, not as good equipment)</li>
+		</ul>
+	  <%= f.submit('Search') %>
+	<% end %>
+</div>

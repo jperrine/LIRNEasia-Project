@@ -11,7 +11,7 @@
 	<label>Plan Type<br />
 	<span class="small">Please Choose</span>
 	</label><br />
-	<%= f.select :plan_type, %w( Prepaid Postpaid ) %><br />
+	<%= f.select :plan_type, {"Prepaid" => "Prepaid", "Monthly Rental" => "Postpaid" } %><br />
 	
 	<label>Low-end Equipment<br />
 		<span class="small">Product</span>
@@ -47,7 +47,7 @@
    	</label>
 	<%= f.text_field :day %><%= f.select :day_usage_unit, @speed_units %><br />
 	<label>
-   		<span class="small">Night Usage Allowance</span>
+   		<span class="small">Nighttime Usage Allowance</span>
    	</label>
 	<%= f.text_field :night %><%= f.select :night_usage_unit, @speed_units %><br />
 	
@@ -56,7 +56,7 @@
 	</label><br />
 	<%= f.text_field :overage %><br />
 	
-	<label>Daily Charge<br />
+	<label>Daily Inc Charge<br />
 		<span class="small">(optional, Incremental) Cost in <%= @country.currency %> per day</span>
 	</label><br />
 	<%= f.text_field :dayoverage %><br />

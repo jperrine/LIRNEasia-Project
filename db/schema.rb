@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100505150444) do
+ActiveRecord::Schema.define(:version => 20100618231530) do
 
   create_table "countries", :force => true do |t|
     t.string   "currency"
@@ -55,6 +55,13 @@ ActiveRecord::Schema.define(:version => 20100505150444) do
     t.string   "highproduct"
     t.float    "lowcost"
     t.string   "lowproduct"
+  end
+
+  create_table "usage_levels", :force => true do |t|
+    t.string   "name"
+    t.string   "unit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
