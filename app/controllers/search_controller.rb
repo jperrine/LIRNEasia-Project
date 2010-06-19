@@ -44,13 +44,22 @@ class SearchController < ApplicationController
   end
   
   def advanced
-    @countries  = Country.find(:all)
+    @countries = Country.find(:all)
+    @usage_levels = UsageLevel.all
   end
   
   def advanced_result
   	#generate bar graph of plans in country or 3 lowest plans
-    @usage = params[:usage]
-    @usage_unit = params[:usage_unit]
+    @usage = 0
+    @usage_unit = ''
+    if params[:usage_level]
+      level = UsageLevel.find(params[:usage_level])
+      @usage = level.amount
+      @usage_unit = level.unit
+    else
+      @usage = params[:uasge]
+      @usage_unit = params[:usage_unit]
+    end
     #convert usage to MB
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
     
@@ -60,7 +69,7 @@ class SearchController < ApplicationController
     @highcost = 0
     country.providers.each do |provider|
       provider.plans.each do |plan|
-        cost = generate_cost(plan, usage_mb)
+        cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
         @highcost = cost if cost > @highcost
       end
