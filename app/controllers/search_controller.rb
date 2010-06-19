@@ -50,6 +50,10 @@ class SearchController < ApplicationController
   
   def advanced_result
   	#generate bar graph of plans in country or 3 lowest plans
+  	if params[:country_id].nil? or params[:equip].nil?
+  	  flash[:notice] = "You must select a country and equipment to search."
+  	  redirect_to :action => 'advanced' and return
+	  end
     @usage = 0
     @usage_unit = ''
     if params[:usage_level]
@@ -74,7 +78,7 @@ class SearchController < ApplicationController
         @highcost = cost if cost > @highcost
       end
     end
-    @highcost *= 1.15
+    #@highcost *= 1.15
   end
   
   def analyst
