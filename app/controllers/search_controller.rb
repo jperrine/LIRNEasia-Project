@@ -6,6 +6,9 @@ class SearchController < ApplicationController
   end
   
   def result
+    if params[:cid].nil? or params[:equip].nil?
+      redirect_to :action => 'index' and return
+    end
     @country = Country.find(params[:cid])
     equip = params[:equip]
     
@@ -24,9 +27,12 @@ class SearchController < ApplicationController
   
   def advanced_result
   	#generate bar graph of plans in country or 3 lowest plans
+  	if params[:usage].nil? or params[:usage_level].nil?
+  	  redirect_to :action => :advanced and return
+	  end
     @usage = 0
     @usage_unit = ''
-    if params[:usage]
+    unless params[:usage].empty?
       @usage = params[:uasge]
       @usage_unit = params[:usage_unit]      
     else
@@ -40,15 +46,22 @@ class SearchController < ApplicationController
     country_id = params[:country_id]
     country = Country.find(params[:country_id])
     @plans = {}
-    @highcost = 0
+    @lowcost = nil
+    @lowplan = nil
     country.providers.each do |provider|
       provider.plans.each do |plan|
         cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
-        @highcost = cost if cost > @highcost
+        if @lowcost.nil?
+          @lowcost = cost
+          @lowplan = plan
+        elsif cost < @lowcost
+          @lowcost = cost
+          @lowplan = plan
+        end
       end
     end
-    #@highcost *= 1.15
+
   end
   
   def countries
@@ -70,6 +83,15 @@ class SearchController < ApplicationController
     end
     #convert usage to MB
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
+    
+    provider_type = params[:provider]
+    plan_type = params[:plan]
+    
+    @plans = {}
+    params[:countries].each do |id|
+      
+    end
+    
   end
   
   private

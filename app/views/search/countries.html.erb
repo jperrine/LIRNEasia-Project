@@ -1,3 +1,4 @@
+<%= render :partial => 'search_nav' %>
 <div id='search'>
 	<% form_tag url_for(:action => 'countries_result'), :method => :post do %>
 	  <p>Enter how much data you want to use to find the best deal</p>
@@ -11,7 +12,7 @@
 				<%= select_tag('usage_level', options_for_select(@usage_levels.map {|ul| ["#{ul.name} (#{ul.amount} #{ul.unit})", ul.id]}))%>
 			</li>
 		</ul>
-	  <%= label_tag "Country: " %>
+	  <%= label_tag "What Countries do you want to compare? " %>
 		<ul>
 			<% @countries.each do |c| %>
 				<li>
@@ -19,7 +20,24 @@
 				</li>
 			<% end %>
 		</ul>
-	  <br />
+		<p>What provider types do you want to compare?</p>
+		<ul>
+			<li>
+				<select id='provider' name='provider'>
+					<option value='Mobile'>Mobile (Cell phones, PDAs, etc.)</option>
+					<option value='Fixed'>Fixed (Landline, house phone, etc)</option>
+				</select>
+			</li>
+		</ul>
+		<p>What plan type do you want to compare?</p>
+		<ul>
+			<li>
+				<select id='plan' name='plan'>
+					<option value='Postpaid'>Postpaid - pay after you use it</option>
+					<option value='Prepaid'>Prepaid - pay before you use it</option>
+				</select>				
+			<li>
+		</ul>
 		<p>What equipment do you plan on using?</p>
 		<ul>
 			<li>
