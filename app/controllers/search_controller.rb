@@ -6,10 +6,6 @@ class SearchController < ApplicationController
   end
   
   def result
-    if params[:cid].nil? or params[:equip].nil?
-      flash[:notice] = "You must select a country and equipment level before you can continue."
-      redirect_to :action => 'index' and return
-    end
     @country = Country.find(params[:cid])
     equip = params[:equip]
     
@@ -28,19 +24,15 @@ class SearchController < ApplicationController
   
   def advanced_result
   	#generate bar graph of plans in country or 3 lowest plans
-  	if params[:country_id].nil? or params[:equip].nil?
-  	  flash[:notice] = "You must select a country and equipment to search."
-  	  redirect_to :action => 'advanced' and return
-	  end
     @usage = 0
     @usage_unit = ''
-    if params[:usage_level]
+    if params[:usage]
+      @usage = params[:uasge]
+      @usage_unit = params[:usage_unit]      
+    else
       level = UsageLevel.find(params[:usage_level])
       @usage = level.amount
       @usage_unit = level.unit
-    else
-      @usage = params[:uasge]
-      @usage_unit = params[:usage_unit]
     end
     #convert usage to MB
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
@@ -66,7 +58,18 @@ class SearchController < ApplicationController
   end
   
   def countries_results
-    
+    @usage = 0
+    @usage_unit = ''
+    if params[:usage]
+      @usage = params[:uasge]
+      @usage_unit = params[:usage_unit]      
+    else
+      level = UsageLevel.find(params[:usage_level])
+      @usage = level.amount
+      @usage_unit = level.unit
+    end
+    #convert usage to MB
+    usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
   end
   
   private

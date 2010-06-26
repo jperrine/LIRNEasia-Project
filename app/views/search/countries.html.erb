@@ -1,5 +1,5 @@
 <div id='search'>
-	<% form_tag url_for(:action => 'countries_result'), :method => :get do %>
+	<% form_tag url_for(:action => 'countries_result'), :method => :post do %>
 	  <p>Enter how much data you want to use to find the best deal</p>
 	  <%= label_tag "Usage: " %>
 	  <%= text_field_tag "usage" %>
@@ -7,15 +7,18 @@
 		<p><strong>- OR -</strong></p>
 		<p>Choose a pre-defined usage level</p>
 		<ul>
-			<% @usage_levels.each do |usage| %>
+			<li>
+				<%= select_tag('usage_level', options_for_select(@usage_levels.map {|ul| ["#{ul.name} (#{ul.amount} #{ul.unit})", ul.id]}))%>
+			</li>
+		</ul>
+	  <%= label_tag "Country: " %>
+		<ul>
+			<% @countries.each do |c| %>
 				<li>
-					<input type='radio' value='<%= usage.id %>' name='usage_level' group='usage_level' />
-					<%=h usage.name %> (<%=h usage.amount %> <%=h usage.unit %>)
+					<input type='checkbox' id='country<%= c.id %>' group='countries' name='countries[]' value='<%= c.id %>' /><%= c.country%>
 				</li>
 			<% end %>
 		</ul>
-	  <%= label_tag "Country: " %>
-	  <%= select_tag("country_id", options_for_select(@countries.map {|c| [c.country, c.id]})) %>
 	  <br />
 		<p>What equipment do you plan on using?</p>
 		<ul>
