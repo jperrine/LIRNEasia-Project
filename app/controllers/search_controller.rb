@@ -33,7 +33,7 @@ class SearchController < ApplicationController
     @usage = 0
     @usage_unit = ''
     unless params[:usage].empty?
-      @usage = params[:uasge]
+      @usage = params[:usage]
       @usage_unit = params[:usage_unit]      
     else
       level = UsageLevel.find(params[:usage_level])
@@ -46,18 +46,13 @@ class SearchController < ApplicationController
     country_id = params[:country_id]
     country = Country.find(params[:country_id])
     @plans = {}
-    @lowcost = nil
-    @lowplan = nil
+    @lowcost, @lowplan = nil
     country.providers.each do |provider|
       provider.plans.each do |plan|
         cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
-        if @lowcost.nil?
-          @lowcost = cost
-          @lowplan = plan
-        elsif cost < @lowcost
-          @lowcost = cost
-          @lowplan = plan
+        if @lowcost.nil? or cost < @lowcost
+          @lowcost, @lowplan = cost, plan
         end
       end
     end
@@ -71,27 +66,51 @@ class SearchController < ApplicationController
   end
   
   def countries_results
+    if params[:usage].nil? or params[:usage_level].nil? or params[:countries].empty? or params[:equip].nil?
+      redirect_to :action => :countries and return
+    end
     @usage = 0
     @usage_unit = ''
-    if params[:usage]
-      @usage = params[:uasge]
+    unless params[:usage].empty?
+      @usage = params[:usage]
       @usage_unit = params[:usage_unit]      
     else
       level = UsageLevel.find(params[:usage_level])
       @usage = level.amount
       @usage_unit = level.unit
     end
+    logger.info @usage
     #convert usage to MB
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
     
-    provider_type = params[:provider]
-    plan_type = params[:plan]
+    equip = params[:equip]
+    @provider_type = params[:provider]
+    @plan_type = params[:plan]
     
     @plans = {}
+    @lowcost, @lowplan = nil
+    @lowest_usd = 0
     params[:countries].each do |id|
-      
+      #for each country, find the country, look through it's plans of the specified type 
+      #generate cost for plan, convert cost to USD, and store in @plans hash
+      country = Country.find(id)
+      logger.info country.country
+      country.providers.select {|p| p.provider_type == @provider_type }.each do |provider|
+        logger.info provider.name
+        provider.plans.select {|p| p.plan_type == @plan_type }.each do |plan|
+          logger.info plan.name
+          cost = generate_cost(plan, usage_mb, equip)
+          logger.info cost
+          cost_usd = convert_to_usd(cost, plan.provider.country.currency)
+          logger.info "USD - #{cost_usd}"
+          @plans["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
+          if @lowcost.nil? or cost_usd < @lowcost
+            @lowcost, @lowplan = cost, plan
+            @lowest_usd = cost_usd
+          end
+        end
+      end
     end
-    
   end
   
   private
@@ -129,7 +148,7 @@ class SearchController < ApplicationController
     	
     	#test if actual usage is greater than plan limit and set cost
     	cost = 0
-    	if usage < plan_usage_cap
+    	if usage <= plan_usage_cap
     		cost = (plan.cost + equip_cost) * tax
   		else
   			cost = ((plan.cost + equip_cost) + (((usage - plan_usage_cap) / overage_increments.to_f) * plan.overage)) * tax
@@ -166,7 +185,7 @@ class SearchController < ApplicationController
 	  end
 	  
 	  #takes a currency code and returns the conversion rate to USD (for comparing countries)
-	  def convert_to_usd(currency)
+	  def convert_to_usd(amount, currency)
 	    url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?ToCurrency=USD&FromCurrency=' + currency.upcase
 	    xml = Net::HTTP.get_response(URI.parse(url)).body
 	    rate_regex = /\>\d+\.\d+\</
@@ -175,6 +194,6 @@ class SearchController < ApplicationController
 	    if match
 	      rate = match[0].gsub(/\<|\>/, '').to_f
 	    end
-	    rate
+	    amount * rate
 	  end
 end

@@ -1,6 +1,6 @@
 <%= render :partial => 'search_nav' %>
 <div id='search'>
-	<% form_tag url_for(:action => 'countries_result'), :method => :post do %>
+	<% form_tag url_for(:action => 'countries_results'), :method => :post do %>
 	  <p>Enter how much data you want to use to find the best deal</p>
 	  <%= label_tag "Usage: " %>
 	  <%= text_field_tag "usage" %>

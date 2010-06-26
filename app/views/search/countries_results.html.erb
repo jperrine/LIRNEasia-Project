@@ -1,1 +1,49 @@
+<!--[if IE]><%= javascript_include_tag "lib/excanvas" %><![endif]-->
+<%= javascript_include_tag "flotr-0.2.0-alpha" %>
+<script type="text/javascript">
+  document.observe('dom:loaded', function() {
+  
+  Flotr.draw(
+    $('placeholder'),
+    [
+      {
+        data: [[0,0]]//sets origin to 0,0
+      },
+      <% counter = 1 %>
+      <% @plans.each do |plan, cost| %>
+        {
+          data: [[<%= counter %> , <%= cost %> ]], 
+          label: "<%= plan %>"
+        },
+        <% counter += 1 %>
+      <% end %>
+      {
+        data: [[<%= counter %>, <%= @highcost %>]]//find max cost and set 100 to that, to give the graph some depth
+      }
+    ],
+    {
+      bars: { show: true, barWidth: 0.5 },
+      legend: { position: 'nw' },
+      xaxis: { title: "Plans" },
+      yaxis: { title: "Cost" }
+    }
+  );
+
+  });		
+</script>
 <%= render :partial => 'search_nav' %>
+<p>
+	Results below are tested against all plans with the type <strong><%= h @plan_type %></strong> that are offered by <strong><%= h @provider_type %></strong> providers.
+</p>
+
+<div id='placeholder' style='width:600px;height:400px;margin:0 auto;'>
+</div>
+<p>
+	<strong><em>NOTICE</em>:</strong> All costs for multi-country comparisons are converted to USD as a basis for comparison.
+	Conversions are generated using <a href='http://www.webservicex.net/WCF/ServiceDetails.aspx?SID=18'>this web service</a>.
+</p>
+<p>
+	The lowest cost plan for <%=h @usage %> <%=h @usage_unit %> is the <%=h @lowplan.name %> plan provided by <%=h @lowplan.provider.name %> in <%=h @lowplan.provider.country.country %>, which costs <%=h @lowcost %> <%=h @lowplan.provider.country.currency %> or $<%= @lowest_usd %> USD.
+</p>
+
+<%= link_to "Back to search", url_for(:action => 'countries') %>

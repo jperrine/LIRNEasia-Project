@@ -17,7 +17,7 @@
 <tr>
   <td>Plan Type</td>
   <td>&nbsp;</td>
-  <td><%=h @plan.plan_type %> </td>
+  <td><%=h @plan.plan_type == "Postpaid" ? "Monthly Rental" : @plan.plan_type %> </td>
 </tr>
 <tr>
 	<td>Plan Cost</td>
