@@ -3,42 +3,20 @@ class SearchController < ApplicationController
   def index
     #find all of the countries for users to select from
     @countries  = Country.find(:all)
-    session[:countries] = nil
-  end
-  
-  #this will take in specific data from the search page
-  #find the associated data, and create a @graph object 
-  #to be displayed
-  def do_search
-    #set session variables graph_code to use when building
-    #data set for display
-    @countries = []
-    if params[:country].nil? or params[:equip].nil?
-      flash[:notice] = "You must select a country and equipment level before you can continue."
-      redirect_to :action => 'index' and return
-    end
-    params[:country].each do |c|
-      @countries << c
-    end
-    session[:countries] = @countries
-    session[:equip] = params[:equip]
-    redirect_to :action => 'result'      
   end
   
   def result
-    country_ids = session[:countries]
-    equip = session[:equip]
-    countries = []
-    country_ids.each do |id|
-      countries << Country.find(id)
+    if params[:cid].nil? or params[:equip].nil?
+      flash[:notice] = "You must select a country and equipment level before you can continue."
+      redirect_to :action => 'index' and return
     end
+    @country = Country.find(params[:cid])
+    equip = params[:equip]
+    
     @graph = {}
-    #todo get all usage levels into same denomination
-    countries.each do |country|
-      country.providers.each do |port|
-        port.plans.each do |plan|
-          @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
-        end
+    @country.providers.each do |port|
+      port.plans.each do |plan|
+        @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
       end
     end
   end
@@ -81,9 +59,13 @@ class SearchController < ApplicationController
     #@highcost *= 1.15
   end
   
-  def analyst
-  	
-	end
+  def countries
+    
+  end
+  
+  def countries_results
+    
+  end
   
   private
   	def generate_cost(plan, usage, equip)

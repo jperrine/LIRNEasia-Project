@@ -1,10 +1,10 @@
 <%= link_to "Custom Usage Plan Search", :action => "advanced" %>
 <div id='search'>
-	<% form_for :search, @countries, :url => {:action => 'do_search'} do |f| %>
+	<% form_for :search, @countries, :url => {:action => 'result'}, :method => 'get' do |f| %>
 	  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
 	  <ul>
 	    <% @countries.each do |c| %>
-	      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='country[]' group="country" /> <%=h c.country %> </li>
+	      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='cid' group="country" /> <%=h c.country %> </li>
 	    <% end %>
 	  </ul>
 		<p>What equipment do you plan on using?</p>

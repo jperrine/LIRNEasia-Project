@@ -19,13 +19,12 @@
         lines: { show: true },
         legend: { position: 'nw'},
         xaxis: { title: "Usage Amount (in MB)" },
-        yaxis: { title: "Cost" }
+        yaxis: { title: "Cost in <%=h @country.currency %>" }
     });
   });
 </script>
 <div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
 </div>
 <br />
-<%= debug @graph %>
 
 <%= link_to "Back to Search", url_for(:action => 'index')%>
