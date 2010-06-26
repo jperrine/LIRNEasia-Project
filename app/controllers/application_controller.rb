@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "You must log in first."
       redirect_to :controller => "user", :action => "log_in"
     else
-      @logged_in_user = User.find(id)
+      @logged_in_user ||= User.find(id)
     end
   end
 end

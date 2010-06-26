@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to provider.name, country_provider_url(@country, provider), :method => :get %>
+    <%= link_to provider.name, country_provider_url(@country, provider) %>
   </td>
   <% if session[:user_id] %>
     <td>
