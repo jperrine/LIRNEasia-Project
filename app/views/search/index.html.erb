@@ -1,16 +1,20 @@
 <%= link_to "Custom Usage Plan Search", :action => "advanced" %>
 <div id='search'>
-	<% form_for :search, @countries, :url => {:action => 'result'}, :method => 'get' do |f| %>
+	<% form_for :search, @countries, :url => {:action => 'result'}, :method => :get do |f| %>
 	  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
 	  <ul>
-	    <% @countries.each do |c| %>
-	      <li><input type='radio' id='<%= c.id %>' value='<%= c.id %>' name='cid' group="country" /> <%=h c.country %> </li>
-	    <% end %>
+			<li>
+				<%= select_tag('cid', options_for_select(@countries.map {|c| [c.country, c.id]}))%>
+			</li>
 	  </ul>
 		<p>What equipment do you plan on using?</p>
 		<ul>
-			<li><input type='radio' value='high' name='equip' group='equip' />High end (More expensive, but better equipment)</li>
-			<li><input type='radio' value='low' name='equip' gorup='equip' />Low end (Cheaper, not as good equipment)</li>
+			<li>
+				<select id='equip' name='equip'>
+					<option value='high'>High end (More expensive, but better equipment)</option>
+					<option value='low'>Low end (Cheaper, not as good equipment)</option>
+				</select>
+			</li>
 		</ul>
 	  <%= f.submit('Search') %>
 	<% end %>

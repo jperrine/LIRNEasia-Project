@@ -1,0 +1,32 @@
+<div id='search'>
+	<% form_tag url_for(:action => 'countries_result'), :method => :get do %>
+	  <p>Enter how much data you want to use to find the best deal</p>
+	  <%= label_tag "Usage: " %>
+	  <%= text_field_tag "usage" %>
+	  <%= select_tag "usage_unit", options_for_select(%w(KB MB GB)) %>
+		<p><strong>- OR -</strong></p>
+		<p>Choose a pre-defined usage level</p>
+		<ul>
+			<% @usage_levels.each do |usage| %>
+				<li>
+					<input type='radio' value='<%= usage.id %>' name='usage_level' group='usage_level' />
+					<%=h usage.name %> (<%=h usage.amount %> <%=h usage.unit %>)
+				</li>
+			<% end %>
+		</ul>
+	  <%= label_tag "Country: " %>
+	  <%= select_tag("country_id", options_for_select(@countries.map {|c| [c.country, c.id]})) %>
+	  <br />
+		<p>What equipment do you plan on using?</p>
+		<ul>
+			<li>
+				<select id='equip' name='equip'>
+					<option value='high'>High end (More expensive, but better equipment)</option>
+					<option value='low'>Low end (Cheaper, not as good equipment)</option>
+				</select>
+			</li>
+		</ul>
+	  <br />
+	  <%= submit_tag('Search') %>
+	<% end %>
+</div>

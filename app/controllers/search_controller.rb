@@ -60,7 +60,9 @@ class SearchController < ApplicationController
   end
   
   def countries
-    
+    #compares plans for usage level across countries, also able to choose prepay/postpay mobile/fixed
+    @usage_levels = UsageLevel.all
+    @countries = Country.all
   end
   
   def countries_results
