@@ -127,6 +127,11 @@ class SearchController < ApplicationController
 	        equip_cost = plan.lowcost
         end
 	    end
+	    
+	    if plan.provider.provider_type == "Fixed"
+	      equip_cost = plan.provider.installation || 0
+      end
+      
 	    equip_cost /= 60.0
       tax = plan.tax / 100.0 + 1.0
       #convert plan usage cap to mb and then compare to plan cap
