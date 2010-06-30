@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100618234537) do
+ActiveRecord::Schema.define(:version => 20100630134847) do
 
   create_table "countries", :force => true do |t|
     t.string   "currency"
@@ -20,23 +20,23 @@ ActiveRecord::Schema.define(:version => 20100618234537) do
 
   create_table "plans", :force => true do |t|
     t.string   "name"
-    t.float    "cost"
-    t.float    "usage"
-    t.float    "day"
-    t.float    "night"
+    t.float    "cost",             :default => 0.0
+    t.float    "usage",            :default => 0.0
+    t.float    "day",              :default => 0.0
+    t.float    "night",            :default => 0.0
     t.string   "description"
-    t.float    "overage"
+    t.float    "overage",          :default => 0.0
     t.string   "speed_unit"
-    t.float    "highcost"
+    t.float    "highcost",         :default => 0.0
     t.string   "highproduct"
-    t.float    "lowcost"
+    t.float    "lowcost",          :default => 0.0
     t.string   "lowproduct"
-    t.float    "speed"
-    t.float    "tax"
+    t.float    "speed",            :default => 0.0
+    t.float    "tax",              :default => 0.0
     t.integer  "provider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "dayoverage"
+    t.float    "dayoverage",       :default => 0.0
     t.string   "usage_unit"
     t.string   "day_usage_unit"
     t.string   "night_usage_unit"
@@ -47,13 +47,13 @@ ActiveRecord::Schema.define(:version => 20100618234537) do
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "provider_type"
-    t.float    "installation"
+    t.float    "installation",  :default => 0.0
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "highcost"
+    t.float    "highcost",      :default => 0.0
     t.string   "highproduct"
-    t.float    "lowcost"
+    t.float    "lowcost",       :default => 0.0
     t.string   "lowproduct"
   end
 
