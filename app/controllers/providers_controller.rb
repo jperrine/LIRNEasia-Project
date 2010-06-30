@@ -21,9 +21,8 @@ class ProvidersController < ApplicationController
   
   # POST /countries/1/providers/create
   def create
-    @provider = Provider.new(params[:provider])
     @country = Country.find(params[:country_id])
-    @provider.country = @country
+    @provider = @country.providers.build(params[:provider])
     if @provider.save
       flash[:notice] = "Provider successfully created."
       redirect_to :action => 'show', :id => @provider.id
@@ -40,7 +39,7 @@ class ProvidersController < ApplicationController
   
   # POST /countries/1/providers/1/update
   def update
-    @country = Country.find(params[:country_id])
+    #@country = Country.find(params[:country_id])
     @provider = Provider.find(params[:id])
     if @provider.update_attributes(params[:provider])
       flash[:notice] = "Provider successfully updated."

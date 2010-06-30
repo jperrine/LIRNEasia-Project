@@ -1,4 +1,4 @@
-<% form_for :provider, @provider, :url => url_for(:action => 'create') do |s| %>
+<% form_for [@country, @provider] do |s| %>
   <br />
   <%= s.error_messages %>
 	

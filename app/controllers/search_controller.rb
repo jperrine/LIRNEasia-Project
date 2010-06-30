@@ -91,15 +91,10 @@ class SearchController < ApplicationController
     @lowest_usd = 0
     params[:countries].each do |id|
       country = Country.find(id)
-#      logger.info country.country
       country.providers.select {|p| p.provider_type == @provider_type }.each do |provider|
-#        logger.info provider.name
         provider.plans.select {|p| p.plan_type == @plan_type }.each do |plan|
-#          logger.info plan.name
           cost = generate_cost(plan, usage_mb, equip)
-#          logger.info cost
           cost_usd = convert_to_usd(cost, plan.provider.country.currency)
-#          logger.info "USD - #{cost_usd}"
           @plans["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
           if @lowcost.nil? or cost_usd < @lowcost
             @lowcost, @lowplan = cost, plan
