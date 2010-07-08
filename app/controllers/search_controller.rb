@@ -56,7 +56,8 @@ class SearchController < ApplicationController
         end
       end
     end
-    @highcost = 0
+    @lowcost = (@lowcost * 100).round.to_f / 100
+    
   end
   
   def countries
