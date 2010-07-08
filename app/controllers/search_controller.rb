@@ -67,7 +67,7 @@ class SearchController < ApplicationController
   end
   
   def countries_results
-    if params[:usage].nil? or params[:usage_level].nil? or params[:countries].empty? or params[:equip].nil?
+    if params[:usage].nil? or params[:usage_level].nil? or params[:countries].nil? or params[:equip].nil? or params[:countries].empty?
       redirect_to :action => :countries and return
     end
     @usage = 0
