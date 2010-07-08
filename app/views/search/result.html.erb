@@ -7,6 +7,7 @@
       {
         data: [[0,0]]//sets x,y origin to 0
       },
+			<% counter = 1 %>
       <% @graph.each do |plan, values| %>
         { data: [
         <% values.each do |usage, cost| %>
@@ -14,6 +15,7 @@
         <% end %>
         ]
       , label: "<%= plan %>"},    
+				<% counter += 1 %>
       <% end %>
     ], {
         lines: { show: true },
@@ -22,8 +24,19 @@
         yaxis: { title: "Cost in <%=h @country.currency %>" }
     });
   });
+	$j().ready(function() {
+		<% position = 22 * counter %>
+		$j('div.flotr-legend table').css('position', 'relative');
+		$j('div.flotr-legend table').css('left', 0);
+		$j('div.flotr-legend table').css('top', -<%= position %>);
+		$j('div.flotr-legend table').css('background-color', 'white');
+		$j('div.flotr-legend table').css('border', '1px solid #000');
+		$j('div.flotr-legend-bg').hide();
+		$j('p.top').css('margin-bottom',<%= position %>);
+	});
 </script>
 <%= render :partial => 'search_nav' %>
+<p class='top'></p>
 <div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
 </div>
 <br />

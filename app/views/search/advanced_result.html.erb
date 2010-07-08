@@ -9,7 +9,7 @@
       {
         data: [[0,0]]//sets origin to 0,0
       },
-      <% counter = 1 %>
+      <% counter = 0.5 %>
       <% @plans.each do |plan, cost| %>
         {
           data: [[<%= counter %> , <%= cost %> ]], 
@@ -25,13 +25,30 @@
       bars: { show: true, barWidth: 0.5 },
       legend: { position: 'nw' },
       xaxis: { title: "Plans" },
-      yaxis: { title: "Cost" }
+      yaxis: { title: "Cost in <%= @lowplan.provider.country.currency %>" }
     }
   );
 
   });		
+	$j().ready(function() {
+		<% position = 22 * (counter - 0.5) %>
+		$j('div.flotr-legend table').css('position', 'relative');
+		$j('div.flotr-legend table').css('left', 0);
+		$j('div.flotr-legend table').css('top', -<%= position %>);
+		$j('div.flotr-legend table').css('background-color', 'white');
+		$j('div.flotr-legend table').css('border', '1px solid #000');
+		$j('div.flotr-legend-bg').hide();
+		$j('p.top').css('margin-bottom',<%= position %>);
+		//hide x axis labels
+		$j('div.flotr-labels div').each(function() {
+			if ($j(this).css('text-align') == 'center') {
+				$j(this).hide();
+			}
+		});
+	});
 </script>
 <%= render :partial => 'search_nav' %>
+<p class='top'></p>
 <div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
 </div>
 
