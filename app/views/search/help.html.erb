@@ -1,0 +1,42 @@
+<%= render :partial => 'search_nav' %>
+<div id='search'>
+	<p>
+		This tool is designed to make it easy for you to figure out what plan in your country is the best deal for your usage amount and proposed equipment.
+	<p>
+	<h3>Find the right section:</h3>
+	<ol>
+		<li>
+			If you want to see a comparison of all plans for any usage level for any country, <%= link_to 'the default search', :action => :index %> is for you.
+		</li>
+		<li>
+			If you want to see a price comparison of plans for a <strong>specific</strong> usage level in a specific country, <%= link_to 'custom usage plan search', :action => :advanced %> is for you.
+		</li>
+		<li>
+			If you want to see a price comparison of plans for a <strong>specific</strong> usage level in <strong>multiple</strong> countries, <%= link_to 'compare plans for different countries search', :action => :countries %> is for you.
+		</li>
+	</ol>
+
+	<h3>Help filling out the form:</h3>
+	<h5>Default Search</h5>
+	<ul>
+		<li><strong>Country Dropdown:</strong> All plans for the country you select will be displayed on the results page.</li>
+		<li><strong>Equipment Dropdown:</strong> This is the type of equipment you plan on using, it will influence the costs displayed on the results slightly.</li>
+	</ul>
+	<h5>Custom Usage Plan Search</h5>
+	<ul>
+		<li><strong>Usage Textbox:</strong> Enter the numeric amount of data usage you plan to use.</li>
+		<li><strong>Pre-defined Usage Dropdown:</strong> Some generic usage levels have been created, use one of these if you don't know how much data you need.</li>
+		<li><strong>Country Dropdown:</strong> All plans for the country you select will be displayed on the results page.</li>
+		<li><strong>Equipment Dropdown:</strong> This is the type of equipment you plan on using, it will influence the costs displayed on the results slightly.</li>
+	</ul>
+	<h5>Compare Plans for Different Countries</h5>
+	<ul>
+		<li><strong>Usage Textbox:</strong> Enter the numeric amount of data usage you plan to use.</li>
+		<li><strong>Pre-defined Usage Dropdown:</strong> Some generic usage levels have been created, use one of these if you don't know how much data you need.</li>
+		<li><strong>Country Checkboxes:</strong> Select as many countries as you would like to compare.</li>
+		<li><strong>Provider Type Dropdown:</strong> Choose either mobile or fixed if you want a mobile phone provider or a land line provider.</li>
+		<li><strong>Plan Type Dropdown:</strong> Choose the type of plan you want to see data for, post paid for a monthly rental plan or prepaid for a pay as you go type plan.</li>
+		<li><strong>Equipment Dropdown:</strong> This is the type of equipment you plan on using, it will influence the costs displayed on the results slightly.</li>
+	</ul>
+	
+</div>

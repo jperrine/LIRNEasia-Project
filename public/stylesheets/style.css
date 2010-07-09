@@ -448,6 +448,10 @@ input[type='radio'], input[type='checkbox'] {
 	list-style: none;
 }
 
+#search ol li a, #search ul li a {
+	text-decoration: underline;
+}
+
 /* The following styles pertain to form input ID's within the application and will need to be changed if the ID's are changed.  */
 
 #plan_plan_type, #provider_provider_type {

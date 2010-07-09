@@ -1,5 +1,8 @@
 class SearchController < ApplicationController
 
+  def help  
+  end
+  
   def index
     #find all of the countries for users to select from
     @countries  = Country.find(:all)
