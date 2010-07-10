@@ -53,7 +53,7 @@
 
 <p>
 	The most cost effective plan is <%=h @lowplan.name %>, which is offered by <%=h @lowplan.provider.name %>.
-	For using <%=h @usage %><%=h @usage_unit%>, <%=h @lowplan.name %> costs only $<%= @lowcost %> <%= @lowplan.provider.country.currency %>.
+	For using <%=h @usage %><%=h @usage_unit%>, <%=h @lowplan.name %> costs only <%= @lowcost %> <%= @lowplan.provider.country.currency %>.
 </p>
 
 <%= link_to "Back to search", url_for(:action => 'index') %>

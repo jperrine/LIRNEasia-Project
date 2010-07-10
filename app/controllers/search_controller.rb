@@ -172,14 +172,14 @@ class SearchController < ApplicationController
 	  def generate_data(plan, equip)
 	  	values = []
 	  	plan_usage_cap = convert_to_mb( plan.usage, plan.usage_unit )
-	    #generate 4 usage levels below usage cap (0%, %25, 50%, 75%)
-	    [0,1,2,4].each do |x|
+	    #generate 4 usage levels below usage cap (50%, 75%, 100%)
+	    [1,2,4].each do |x|
 	    	usage = plan_usage_cap / 4.0 * x
 	    	cost = generate_cost(plan, usage, equip)
 	    	values << [usage, cost]
 	    end
-	    #generate 3 usage levels above usage cap (125%, 150%, 175%)
-	    [1,2,3].each do |x|
+	    #generate 3 usage levels above usage cap (125%, 150%)
+	    [1,2].each do |x|
 	    	usage = plan_usage_cap + ((plan_usage_cap / 4.0) * x)
 	    	cost = generate_cost(plan, usage, equip)
 	    	values << [usage, cost]
