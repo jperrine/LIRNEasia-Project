@@ -58,18 +58,19 @@ class SearchController < ApplicationController
     country_id = params[:country_id]
     country = Country.find(params[:country_id])
     @plans = {}
-    @lowcost, @lowplan = nil
+    @lowcost, @lowplan, lowplankey = nil
     country.providers.each do |provider|
       provider.plans.each do |plan|
         cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
         if @lowcost.nil? or cost < @lowcost
           @lowcost, @lowplan = cost, plan
+          lowplankey = "#{provider.name} : #{plan.name} (#{plan.plan_type})"
         end
       end
     end
+    @lowest = @plans.select {|x,y| y == @lowcost and x != lowplankey }
     @lowcost = (@lowcost * 100).round.to_f / 100
-    
   end
   
   def countries
@@ -100,7 +101,7 @@ class SearchController < ApplicationController
     @plan_type = params[:plan]
     
     @plans = {}
-    @lowcost, @lowplan = nil
+    @lowcost, @lowplan, lowplankey = nil
     @lowest_usd = 0
     params[:countries].each do |id|
       country = Country.find(id)
@@ -112,10 +113,12 @@ class SearchController < ApplicationController
           if @lowcost.nil? or cost_usd < @lowcost
             @lowcost, @lowplan = cost, plan
             @lowest_usd = cost_usd
+            lowplankey = "#{provider.name} : #{plan.name} (#{plan.plan_type})"
           end
         end
       end
     end
+    @lowest = @plans.select {|x,y| y == @lowcost and x != lowplankey }
     @lowcost = (@lowcost * 100).round.to_f / 100
     @lowest_usd = (@lowest_usd * 100).round.to_f / 100
   end

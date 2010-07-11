@@ -56,4 +56,15 @@
 	For using <%=h @usage %><%=h @usage_unit%>, <%=h @lowplan.name %> costs only <%= @lowcost %> <%= @lowplan.provider.country.currency %>.
 </p>
 
+<% unless @lowest.empty? %>
+	<p>Also available for <%= @lowcost %> <%= @lowplan.provider.country.currency %> are the following plan(s).<p>
+	<ul>
+		<% @lowest.each do |k,v| %>
+			<li>
+				<%= k %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
 <%= link_to "Back to search", url_for(:action => 'index') %>

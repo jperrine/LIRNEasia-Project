@@ -60,6 +60,16 @@
 	<% else %>
 		No plans were found to be cost effective, try adjusting your search to find the best deal for your usage level.
 	<% end %>
+	<% unless @lowest.empty? %>
+		<p>Also available for <%= @lowcost %> <%= @lowplan.provider.country.currency %> are the following plan(s).<p>
+		<ul>
+			<% @lowest.each do |k,v| %>
+				<li>
+					<%= k %>
+				</li>
+			<% end %>
+		</ul>
+	<% end %>
 </p>
 
 <%= link_to "Back to search", url_for(:action => 'countries') %>
