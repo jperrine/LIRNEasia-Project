@@ -182,8 +182,8 @@ class SearchController < ApplicationController
 	  	values = []
 	  	usage = plan.usage != 0.0 ? plan.usage : (plan.day + plan.night)
 	  	plan_usage_cap = convert_to_mb( plan.usage, plan.usage_unit )
-	    #generate 4 usage levels below usage cap (50%, 75%, 100%)
-	    [1,2,4].each do |x|
+	    #generate 4 usage levels below usage cap (0%, 50%, 75%, 100%)
+	    [0,1,2,4].each do |x|
 	    	usage = plan_usage_cap / 4.0 * x
 	    	cost = generate_cost(plan, usage, equip)
 	    	values << [usage, cost]
