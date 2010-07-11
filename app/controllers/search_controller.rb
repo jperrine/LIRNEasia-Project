@@ -113,12 +113,12 @@ class SearchController < ApplicationController
           if @lowcost.nil? or cost_usd < @lowcost
             @lowcost, @lowplan = cost, plan
             @lowest_usd = cost_usd
-            lowplankey = "#{provider.name} : #{plan.name} (#{plan.plan_type})"
+            lowplankey = "#{country.country}: #{provider.name} - #{plan.name}"
           end
         end
       end
     end
-    @lowest = @plans.select {|x,y| y == @lowcost and x != lowplankey }
+    @lowest = @plans.select {|x,y| y == @lowest_usd and x != lowplankey }
     @lowcost = (@lowcost * 100).round.to_f / 100
     @lowest_usd = (@lowest_usd * 100).round.to_f / 100
   end
