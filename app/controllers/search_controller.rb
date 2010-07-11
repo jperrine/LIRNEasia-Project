@@ -16,15 +16,24 @@ class SearchController < ApplicationController
     equip = params[:equip]
     
     @graph = {}
+    highest = nil
     @country.providers.each do |port|
       port.plans.each do |plan|
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
+        if highest.nil? or @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
+          highest = @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
+        end
+      end
+    end
+    @country.providers.each do |port|
+      port.plans.each do |plan|
+        @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [highest, generate_cost(plan, highest, equip)]
       end
     end
   end
   
   def advanced
-    @countries = Country.find(:all)
+    @countries = Country.all
     @usage_levels = UsageLevel.all
   end
   
@@ -171,6 +180,7 @@ class SearchController < ApplicationController
   	
 	  def generate_data(plan, equip)
 	  	values = []
+	  	usage = plan.usage != 0.0 ? plan.usage : (plan.day + plan.night)
 	  	plan_usage_cap = convert_to_mb( plan.usage, plan.usage_unit )
 	    #generate 4 usage levels below usage cap (50%, 75%, 100%)
 	    [1,2,4].each do |x|
