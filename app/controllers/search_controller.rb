@@ -8,6 +8,23 @@ class SearchController < ApplicationController
     @countries  = Country.find(:all)
   end
   
+  def bandwidth
+    @countries = Country.all
+    @bandwidths = []
+    @countries.each do |country|
+      country.providers.each do |provider|
+        provider.plans.each do |plan|
+          @bandwidths << "#{plan.speed} #{plan.speed_unit}"
+        end
+      end
+    end
+    @bandwidths.uniq!
+  end
+  
+  def bandwidth_results
+    
+  end
+  
   def result
     if params[:cid].nil? or params[:equip].nil?
       redirect_to :action => 'index' and return
@@ -128,13 +145,13 @@ class SearchController < ApplicationController
   		#assumes usage is given in MB
   		equip_cost = 1
   		if equip == 'high'
-  		  unless plan.provider.highcost.nil?
+  		  unless plan.provider.highcost == 0.00
   		    equip_cost = plan.provider.highcost 
 		    else
 		      equip_cost = plan.highcost 
 	      end
 		  else
-		    unless plan.provider.lowcost.nil?
+		    unless plan.provider.lowcost == 0.00
 		      equip_cost = plan.provider.lowcost
 	      else
 	        equip_cost = plan.lowcost
@@ -185,18 +202,10 @@ class SearchController < ApplicationController
 	  	values = []
 	  	usage = plan.usage != 0.0 ? plan.usage : (plan.day + plan.night)
 	  	plan_usage_cap = convert_to_mb( plan.usage, plan.usage_unit )
-	    #generate 4 usage levels below usage cap (0%, 50%, 75%, 100%)
-	    [0,1,2,4].each do |x|
-	    	usage = plan_usage_cap / 4.0 * x
-	    	cost = generate_cost(plan, usage, equip)
-	    	values << [usage, cost]
-	    end
-	    #generate 3 usage levels above usage cap (125%, 150%)
-	    [1,2].each do |x|
-	    	usage = plan_usage_cap + ((plan_usage_cap / 4.0) * x)
-	    	cost = generate_cost(plan, usage, equip)
-	    	values << [usage, cost]
-    	end
+      #new range 0%, 100%, 125%
+	  	values << [0, generate_cost(plan, 0, equip)]
+	  	values << [plan_usage_cap, generate_cost(plan, plan_usage_cap, equip)]
+	  	values << [plan_usage_cap * 1.25, generate_cost(plan, plan_usage_cap * 1.25, equip)]
     	values
 	  end
 	  

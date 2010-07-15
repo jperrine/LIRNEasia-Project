@@ -18,7 +18,7 @@
 		        <% counter += 1 %>
 		      <% end %>
 		      {
-		        data: [[<%= counter %>, <%= @highcost %>]]//find max cost and set 100 to that, to give the graph some depth
+		        data: [[<%= counter %>, <%= @highcost %>]]
 		      }
 		    ],
 		    {
@@ -29,7 +29,7 @@
 		    }
 		  );
 		
-			<% position = 20 * (counter - 0.5) %>
+			<% position = 22 * (counter - 0.5) %>
 			$j('div.flotr-legend table').css('position', 'relative');
 			$j('div.flotr-legend table').css('left', 0);
 			$j('div.flotr-legend table').css('top', -<%= position %>);
