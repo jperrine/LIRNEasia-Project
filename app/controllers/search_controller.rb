@@ -8,23 +8,6 @@ class SearchController < ApplicationController
     @countries  = Country.find(:all)
   end
   
-  def bandwidth
-    @countries = Country.all
-    @bandwidths = []
-    @countries.each do |country|
-      country.providers.each do |provider|
-        provider.plans.each do |plan|
-          @bandwidths << "#{plan.speed} #{plan.speed_unit}"
-        end
-      end
-    end
-    @bandwidths.uniq!
-  end
-  
-  def bandwidth_results
-    
-  end
-  
   def result
     if params[:cid].nil? or params[:equip].nil?
       redirect_to :action => 'index' and return
@@ -47,6 +30,68 @@ class SearchController < ApplicationController
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [highest, generate_cost(plan, highest, equip)]
       end
     end
+  end
+  
+  def bandwidth
+    @usage_levels = UsageLevel.all
+    @countries = Country.all
+    @bandwidths = []
+    @countries.each do |country|
+      country.providers.each do |provider|
+        provider.plans.each do |plan|
+          @bandwidths << "#{plan.speed} #{plan.speed_unit}"
+        end
+      end
+    end
+    @bandwidths.uniq!
+  end
+  
+  def bandwidth_results
+    if params[:countries].nil? or params[:equip].nil?
+      redirect_to :action => :bandwidth and return
+    end
+    equip = params[:equip]
+    
+    
+    @countries = []
+    params[:countries].each {|id| @countries << Country.find(id) }
+    
+    speed = params[:bandwidth].split.first.to_f
+    speed_unit = params[:bandwidth].split.last
+    
+    @usage = 0
+    @usage_unit = ''
+    unless params[:usage].empty?
+      @usage = params[:usage]
+      @usage_unit = params[:usage_unit]      
+    else
+      level = UsageLevel.find(params[:usage_level])
+      @usage = level.amount
+      @usage_unit = level.unit
+    end
+    #convert usage to MB
+    usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
+    
+    @graph = {}
+    @lowcost, @lowplan, lowplankey = nil
+    @lowest_usd = 0
+    
+    @countries.each do |country|
+      country.providers.each do |provider|
+        provider.plans.select{|p| p.speed == speed and p.speed_unit == speed_unit }.each do |plan|
+          cost = generate_cost(plan, usage_mb, equip)
+          cost_usd = convert_to_usd(cost, plan.provider.country.currency)
+          @graph["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
+          if @lowcost.nil? or cost_usd < @lowcost
+            @lowcost, @lowplan = cost, plan
+            @lowest_usd = cost_usd
+            lowplankey = "#{country.country}: #{provider.name} - #{plan.name}"
+          end
+        end
+      end
+    end 
+    @lowest = @graph.select {|x,y| y == @lowcost and x != lowplankey }
+    @lowcost = @lowcost.nil? ? nil : (@lowcost * 100).round.to_f / 100
   end
   
   def advanced
@@ -145,21 +190,21 @@ class SearchController < ApplicationController
   		#assumes usage is given in MB
   		equip_cost = 1
   		if equip == 'high'
-  		  unless plan.provider.highcost == 0.00
+  		  unless plan.provider.highcost == 0.00 or plan.provider.highcost == nil
   		    equip_cost = plan.provider.highcost 
 		    else
-		      equip_cost = plan.highcost 
+		      equip_cost = plan.highcost == nil ? 0.00 : plan.highcost
 	      end
 		  else
-		    unless plan.provider.lowcost == 0.00
+		    unless plan.provider.lowcost == 0.00 or plan.provider.lowcost == nil
 		      equip_cost = plan.provider.lowcost
 	      else
-	        equip_cost = plan.lowcost
+	        equip_cost = plan.lowcost == nil ? 0.00 : plan.lowcost
         end
 	    end
 	    
 	    if plan.provider.provider_type == "Fixed"
-	      equip_cost = plan.provider.installation || 0
+	      equip_cost = plan.provider.installation == nil ? 0.00 : plan.provider.installation
       end
       
 	    equip_cost /= 60.0
