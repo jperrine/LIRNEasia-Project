@@ -20,14 +20,16 @@ class SearchController < ApplicationController
     @country.providers.each do |port|
       port.plans.each do |plan|
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
-        if highest.nil? or @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
+        if highest.nil? || @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0] > highest
           highest = @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
         end
       end
     end
     @country.providers.each do |port|
       port.plans.each do |plan|
-        @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [highest, generate_cost(plan, highest, equip)]
+        unless highest == @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
+          @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [[highest, generate_cost(plan, highest, equip)]]
+        end
       end
     end
   end
