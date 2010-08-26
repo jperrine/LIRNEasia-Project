@@ -9,5 +9,7 @@
 </div><!-- authbox -->
 
 <hr />
-<span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new"))%><br />
+<% if session[:user_id] %>
+	<span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new"))%><br />
+<% end %>
 <span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to 'Return Home', countries_path %>

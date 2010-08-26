@@ -36,6 +36,9 @@
       <% end %>
       <%= yield %>
     </div><!-- content -->
+		<% if session[:user_id] %>
+			<span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new"))%><br />
+		<% end %>
   <div><!-- wrapper -->
 </body>
 </html>

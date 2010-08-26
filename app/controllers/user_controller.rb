@@ -1,6 +1,7 @@
 require 'digest/sha1'
 class UserController < ApplicationController
-
+  before_filter :get_logged_in_user, :except => [:log_in, :do_login]
+  
   def index
     redirect_to :action => 'log_in'
   end
