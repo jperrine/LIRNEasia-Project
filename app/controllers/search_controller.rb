@@ -206,7 +206,7 @@ class SearchController < ApplicationController
 	    end
 	    
 	    if plan.provider.provider_type == "Fixed"
-	      equip_cost = plan.provider.installation == nil ? 0.00 : plan.provider.installation
+	      equip_cost = plan.installation == nil ? 0.00 : plan.installation
       end
       
 	    equip_cost /= 60.0
