@@ -18,7 +18,7 @@
 		        <% counter += 1 %>
 		      <% end %>
 		      {
-		        data: [[<%= counter %>, <%= @highcost || 0 %>]]
+		        data: [[<%= counter %>, <%= @highcost || 0%>]]
 		      }
 		    ],
 		    {
@@ -30,17 +30,17 @@
 		  );
 		
 			<% position = 22 * (counter - 0.5) %>
-			jQuery('div.flotr-legend table').css('position', 'relative');
-			jQuery('div.flotr-legend table').css('left', 0);
-			jQuery('div.flotr-legend table').css('top', -<%= position %>);
-			jQuery('div.flotr-legend table').css('background-color', '#fff');
-			jQuery('div.flotr-legend table').css('border', '1px solid #000');
-			jQuery('div.flotr-legend-bg').hide();
-			jQuery('p.top').css('margin-bottom',<%= position %>);
+			$j('div.flotr-legend table').css('position', 'relative');
+			$j('div.flotr-legend table').css('left', 0);
+			$j('div.flotr-legend table').css('top', -<%= position %>);
+			$j('div.flotr-legend table').css('background-color', '#fff');
+			$j('div.flotr-legend table').css('border', '1px solid #000');
+			$j('div.flotr-legend-bg').hide();
+			$j('p.top').css('margin-bottom',<%= position %>);
 			
-			jQuery('div.flotr-grid-label').each(function() {
-				if (jQuery(this).css('text-align') == 'center') {
-					jQuery(this).hide();
+			$j('div.flotr-grid-label').each(function() {
+				if ($j(this).css('text-align') == 'center') {
+					$j(this).hide();
 				}
 			});
 		}) ();
