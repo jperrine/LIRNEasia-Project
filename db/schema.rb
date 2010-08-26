@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630134847) do
+ActiveRecord::Schema.define(:version => 20100826174011) do
 
   create_table "countries", :force => true do |t|
     t.string   "currency"
@@ -20,23 +20,22 @@ ActiveRecord::Schema.define(:version => 20100630134847) do
 
   create_table "plans", :force => true do |t|
     t.string   "name"
-    t.float    "cost",             :default => 0.0
-    t.float    "usage",            :default => 0.0
-    t.float    "day",              :default => 0.0
-    t.float    "night",            :default => 0.0
+    t.float    "cost"
+    t.float    "usage"
+    t.float    "day"
+    t.float    "night"
     t.string   "description"
-    t.float    "overage",          :default => 0.0
+    t.float    "overage"
     t.string   "speed_unit"
-    t.float    "highcost",         :default => 0.0
+    t.float    "highcost"
     t.string   "highproduct"
-    t.float    "lowcost",          :default => 0.0
+    t.float    "lowcost"
     t.string   "lowproduct"
-    t.float    "speed",            :default => 0.0
-    t.float    "tax",              :default => 0.0
+    t.float    "speed"
+    t.float    "tax"
     t.integer  "provider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "dayoverage",       :default => 0.0
     t.string   "usage_unit"
     t.string   "day_usage_unit"
     t.string   "night_usage_unit"
@@ -47,13 +46,13 @@ ActiveRecord::Schema.define(:version => 20100630134847) do
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "provider_type"
-    t.float    "installation",  :default => 0.0
+    t.float    "installation"
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "highcost",      :default => 0.0
+    t.float    "highcost"
     t.string   "highproduct"
-    t.float    "lowcost",       :default => 0.0
+    t.float    "lowcost"
     t.string   "lowproduct"
   end
 

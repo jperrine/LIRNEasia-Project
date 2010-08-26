@@ -13,6 +13,5 @@ class Plan < ActiveRecord::Base
     self.night ||= 0.00
     self.highcost ||= 0.00
     self.lowcost ||= 0.00
-    self.dayoverage ||= 0.00
   end
 end
