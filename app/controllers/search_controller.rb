@@ -190,26 +190,27 @@ class SearchController < ApplicationController
   private
   	def generate_cost(plan, usage, equip)
   		#assumes usage is given in MB
-  		equip_cost = 1
+  		equip_cost = 0
   		if equip == 'high'
   		  unless plan.provider.highcost == 0.00 or plan.provider.highcost == nil
   		    equip_cost = plan.provider.highcost 
 		    else
 		      equip_cost = plan.highcost == nil ? 0.00 : plan.highcost
 	      end
-		  else
+	      equip_cost /= 60.0
+		  elsif equip == 'low'
 		    unless plan.provider.lowcost == 0.00 or plan.provider.lowcost == nil
 		      equip_cost = plan.provider.lowcost
 	      else
 	        equip_cost = plan.lowcost == nil ? 0.00 : plan.lowcost
         end
+        equip_cost /= 60.0
 	    end
 	    
 	    if plan.provider.provider_type == "Fixed"
 	      equip_cost = plan.installation == nil ? 0.00 : plan.installation
       end
       
-	    equip_cost /= 60.0
       tax = plan.tax / 100.0 + 1.0
       #convert plan usage cap to mb and then compare to plan cap
       plan_usage_cap = 0
