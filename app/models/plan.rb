@@ -9,6 +9,7 @@ class Plan < ActiveRecord::Base
   belongs_to :provider
   
   def no_nulls
+    self.installation ||= 0.00
     self.day ||= 0.00
     self.night ||= 0.00
     self.highcost ||= 0.00

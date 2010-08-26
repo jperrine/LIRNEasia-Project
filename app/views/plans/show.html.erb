@@ -24,6 +24,13 @@
 	<td>&nbsp;</td>
 	<td><%=h @plan.cost %> <%=h @country.currency %></td>
 </tr>
+<% if @provider.provider_type == "Fixed" %>
+	<tr>
+		<td>Installation Cost</td>
+		<td>&nbsp;</td>
+		<td><%=h @plan.installation %> <%= @country.currency %></td>
+	</tr>
+<% end %>
 <tr>
 	<td>Data Use Allowance</td>
 	<td>&nbsp;</td>

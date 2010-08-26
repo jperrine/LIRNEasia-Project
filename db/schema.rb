@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826174011) do
+ActiveRecord::Schema.define(:version => 20100826175553) do
 
   create_table "countries", :force => true do |t|
     t.string   "currency"
@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(:version => 20100826174011) do
     t.string   "night_usage_unit"
     t.string   "incremental_unit"
     t.string   "plan_type"
+    t.float    "installation"
   end
 
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "provider_type"
-    t.float    "installation"
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -7,7 +7,6 @@ class Provider < ActiveRecord::Base
   has_many :plans
   
   def no_nulls
-    self.installation ||= 0.00
     self.lowcost ||= 0.00
     self.highcost ||= 0.00
   end
