@@ -15,16 +15,7 @@
 	  <%= label_tag "Country: " %>
 	  <%= select_tag("country_id", options_for_select(@countries.map {|c| [c.country, c.id]})) %>
 	  <br />
-		<p>What equipment do you plan on using?</p>
-		<ul>
-			<li>
-				<select id='equip' name='equip'>
-					<option value='high'>High end (More expensive, but better equipment)</option>
-					<option value='low'>Low end (Cheaper, not as good equipment)</option>
-				</select>
-			</li>
-		</ul>
-	  <br />
+		<%= render :partial => 'equip_select' %>
 	  <%= submit_tag('Search') %>
 	<% end %>
 </div>
