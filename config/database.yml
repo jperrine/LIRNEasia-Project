@@ -15,9 +15,3 @@ test:
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
-
-production:
-    adapter: postgresql
-    username: postgre
-    password: lcfIS$afe
-    database: chanuka_lcf
