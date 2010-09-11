@@ -3,6 +3,8 @@
 <% form_for([@country, @provider, @plan]) do |f| %>
   <%= f.error_messages %>
   <br />
+	<div class="editboxbg1">
+	
 	<label>Plan<br />
 	<span class="small">Name</span>
 	</label><br />
@@ -13,11 +15,13 @@
 	</label><br />
 	<%= f.select :plan_type, {"Prepaid" => "Prepaid", "Monthly Rental" => "Postpaid" } %><br />
 	
+	</div><!-- editboxbg1 -->
+	<div class="editboxbg2">
+	
 	<label>Low-end Equipment<br />
 		<span class="small">Product</span>
 	</label><br />
 	<%= f.text_field :lowproduct %><br />
-	<br />
 	<label>
  		<span class="small">Cost in <%= @country.currency %></span>
  	</label>
@@ -31,6 +35,9 @@
    		<span class="small">Cost in <%= @country.currency %></span>
    	</label>
 	<%= f.text_field :highcost %><br />
+	
+	</div><!-- editboxbg2 -->
+	<div class="editboxbg1">
 	
 	<% if @provider.provider_type == "Fixed" %>
 		<label>Installation<br />
@@ -58,6 +65,9 @@
    	</label>
 	<%= f.text_field :night %><%= f.select :night_usage_unit, @speed_units %><br />
 	
+	</div><!-- editboxbg1 -->
+	<div class="editboxbg2">
+	
 	<label>Incremental Charge<br />
 		<span class="small">Cost in <%= @country.currency %></span>
 	</label><br />
@@ -66,28 +76,35 @@
 	<br />
 	
 	<label>Charge Unit<br />
-	  <span class="small">Unit for overage charges (Incremental)</span>
+	  <span class="small">For incremental overage</span>
 	</label><br />
 	<%= f.select :incremental_unit, @speed_units %><br />
 	
-	<br />
+	</div><!-- editboxbg2 -->
+	<div class="editboxbg1">
 	
 	<label>Taxes<br />
    		<span class="small">Percentage</span>
    	</label><br />
 	<%= f.text_field :tax %><br />
 	
+	</div><!-- editboxbg1 -->
+	<div class="editboxbg2">
+	
 	<label>Connection Speed<br />
 		<span class="small">Speed in selected unit</span>
 	</label><br />
 	<%= f.text_field :speed %><%= f.select :speed_unit, @speed_units %><br />
 	
-	<br />
+	</div><!-- editboxbg2 -->
+	<div class="editboxbg1">
 	
 	<label>Plan Description<br />
    		<span class="small">Write a brief description</span>
    	</label><br />
 	<%= f.text_field :description %>
+	
+	</div><!-- editboxbg1 -->
 	
   <p><%= f.submit "#{action.capitalize} Plan" %></p>
 

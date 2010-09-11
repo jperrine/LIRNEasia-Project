@@ -20,8 +20,13 @@ body {
 #logoswrapper {
 	width: 780px;
 	margin: auto;
-	margin-bottom: 50px;
+	margin-bottom: 0px;
 }
+
+#navigation a:link, #navigation a:visited, #navigation a:active, #navigation a:hover {
+	color: #0080ff;
+	text-decoration: underline;
+} 
 
 #logoswrapper td {
 	text-align: left;
@@ -64,8 +69,60 @@ color: #000000;
 text-decoration: none;
 }
 
+#main {
+	width: 520px;
+	height: 400px;
+	float: left;
+}
+
+.bignumber {
+	font-size: 72px;
+	float: left;
+	color: #999999;
+}
+
+#main a:link, #main a:visited, #main a:active {
+	color: #0080ff;
+	text-decoration: none;
+}
+
+#main a:hover {
+	text-decoration: underline;
+}
+
+#main h1 {
+	margin: 0;
+}
+
+#main p {
+	margin: 5px;
+	margin-left: 63px;
+	font-size: 12px;
+	color: #444444;
+}
+
+#hometable tr td.editsymbol a:link, #hometable tr td.editsymbol a:visited, #hometable tr td.editsymbol a:active, #hometable tr td.editsymbol a:hover {
+	color: #ffa500;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#hometable tr td.deletesymbol a:link, #hometable tr td.deletesymbol a:visited, #hometable tr td.deletesymbol a:active, #hometable tr td.deletesymbol a:hover {
+	color: #ff0000;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#rightsidebar {
+	width: 250px;
+	height: 350px;
+	float: right;
+	border: 1px solid #000000;
+}
+
 #hometable {
-	width: 100%;
+	width: 240px;
+	margin: 5px;
 }
 
 #hometable th {
@@ -87,45 +144,44 @@ text-decoration: none;
 }
 
 #login {
+	margin-top: 10px;
 	float: right;
-	background-color: #0080ff;
-	border: 4px solid #0040ff;
-	width: 150px;
-	padding: 5px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 16px;
+	font-size: 10px;
 }
 
 #login a:link, #login a:active, #login a:visited, #login a:hover {
-	color: #ffffff;
+	color: #0080ff;
 	text-decoration: none;
 }
 
 #logout {
+	margin-top: 10px;
 	float: right;
-	background-color: #ff0000;
-	border: 4px solid #990000;
-	width: 150px;
-	padding: 5px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 16px;
+	font-size: 10px;
+	padding-top: 2px;
+}
+
+#addnewadmin {
+	margin-top: 10px;
+	margin-right: 10px;
+	float: right;
+	font-size: 10px;
 }
 
 #logout a:link, #logout a:active, #logout a:visited, #logout a:hover {
-	color: #ffffff;
+	color: #ff0000;
 	text-decoration: none;
 }
 
 #addcountry {
 	margin: 6px;
+	margin-top: 20px;
 }
 
 #aboutpage {
-	width: 350px;
+	width: 420px;
 	margin: auto;
-	margin-top: 150px;
+	margin-top: 450px;
 	text-align: center;
 	font-size: 12px;
 	font-style: italic;
@@ -244,7 +300,8 @@ text-decoration: none;
 	background-color: #ffcc00;
 	border: 4px solid #ffa500;
 	border-bottom: 0px;
-	padding: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-size: 16px;
 	font-weight: bold;
 	color: #000000;
@@ -260,7 +317,7 @@ text-decoration: none;
 	border-top: 0px;
 	margin: auto;
 	margin-bottom: 50px;
-	padding: 5px;
+	padding: 0px;
 	text-align: center;
 	color: #ffffff;
 	font-weight: bold;
@@ -270,6 +327,15 @@ text-decoration: none;
 	width: 150px;
 	float: left;
 	text-align: right;
+}
+
+.editboxbg1 {
+	padding: 5px;
+}
+
+.editboxbg2 {
+	padding: 5px;
+	background-color: #555555;
 }
 
 #portable_form label {
@@ -433,8 +499,10 @@ td.none {
 }
 
 #navigation {
-  margin: 15px 0;
-  width: 80%;
+	margin: 15px 0;
+	width: 100%;
+	text-align: right;
+	font-size: 10px;
 }
 
 input {

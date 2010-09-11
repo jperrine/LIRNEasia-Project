@@ -12,10 +12,10 @@
 ActiveRecord::Schema.define(:version => 20100826175553) do
 
   create_table "countries", :force => true do |t|
-    t.string   "currency"
-    t.string   "country"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "currency"
+    t.string    "country"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "plans", :force => true do |t|
@@ -57,18 +57,18 @@ ActiveRecord::Schema.define(:version => 20100826175553) do
   end
 
   create_table "usage_levels", :force => true do |t|
-    t.string   "name"
-    t.string   "unit"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal  "amount"
+    t.string    "name"
+    t.string    "unit"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.decimal   "amount"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username"
-    t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "username"
+    t.string    "password"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
 end

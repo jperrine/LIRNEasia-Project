@@ -25,10 +25,10 @@
 	</table>
     <div id="content">
       <div id="navigation">
-        <%= link_to "Home", url_for(:controller => 'countries') %> | 
-        <%= link_to "Search", url_for(:controller => 'search') %>
+        <span style="color: #000000;"><%= link_to "Home", url_for(:controller => 'countries') %></span> | 
+        <%= link_to "Compare", url_for(:controller => 'search') %>
 				<% if session[:user_id] %>
-					| <%= link_to "Usage levels", usage_levels_url %>
+					| <%= link_to "Usage Levels", usage_levels_url %>
 				<% end %>
       </div>
       <% unless flash[:notice].blank? %>
@@ -36,9 +36,6 @@
       <% end %>
       <%= yield %>
     </div><!-- content -->
-		<% if session[:user_id] %>
-			<span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new", :controller => 'user'))%><br />
-		<% end %>
   <div><!-- wrapper -->
 </body>
 </html>
