@@ -535,3 +535,7 @@ input[type='radio'], input[type='checkbox'] {
 	float: left;
 	margin-left: 13px;
 }
+
+#search p {
+	font-weight: bold;
+}

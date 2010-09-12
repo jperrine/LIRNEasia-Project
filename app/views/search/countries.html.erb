@@ -12,7 +12,7 @@
 				<%= select_tag('usage_level', options_for_select(@usage_levels.map {|ul| ["#{ul.name} (#{ul.amount} #{ul.unit})", ul.id]}))%>
 			</li>
 		</ul>
-	  <%= label_tag "What Countries do you want to compare? " %>
+	  <p>What Countries do you want to compare? </p>
 		<ul>
 			<% @countries.each do |c| %>
 				<li>

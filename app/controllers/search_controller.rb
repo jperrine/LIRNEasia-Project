@@ -165,19 +165,20 @@ class SearchController < ApplicationController
     @plan_type = params[:plan]
     
     @plans = {}
-    @lowcost, @lowplan, lowplankey = nil
-    @lowest_usd = 0
+    @lowcost, @lowplan, lowplankey, @lowest_usd = nil
+    
     params[:countries].each do |id|
       country = Country.find(id)
       country.providers.select {|p| p.provider_type == @provider_type }.each do |provider|
         provider.plans.select {|p| p.plan_type == @plan_type }.each do |plan|
           cost = generate_cost(plan, usage_mb, equip)
           cost_usd = convert_to_usd(cost, plan.provider.country.currency)
-          @plans["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
-          if @lowcost.nil? or cost_usd < @lowcost
+          key = "#{country.country}: #{provider.name} - #{plan.name}"
+          @plans[key] = cost_usd
+          if @lowcost.nil? or cost_usd < @lowest_usd
             @lowcost, @lowplan = cost, plan
             @lowest_usd = cost_usd
-            lowplankey = "#{country.country}: #{provider.name} - #{plan.name}"
+            lowplankey = key
           end
         end
       end
