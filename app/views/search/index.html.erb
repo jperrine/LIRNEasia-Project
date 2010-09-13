@@ -1,13 +1,33 @@
 <%= render :partial => 'search_nav' %>
-<div id='search'>
-	<% form_for :search, @countries, :url => {:action => 'result'}, :method => :get do |f| %>
-	  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
-	  <ul>
-			<li>
-				<%= select_tag('cid', options_for_select(@countries.map {|c| [c.country, c.id]}))%>
-			</li>
-	  </ul>
-		<%= render :partial => 'equip_select' %>
-	  <%= f.submit('Search') %>
-	<% end %>
+<p>Welcome to the LCF Analyzer, please choose from the options below to proceed or click above if you know what kind of search you want.</p>
+<script type='text/javascript'>
+	$j().ready(function() {
+		$j('div#usage_level').hide();
+		$j('a#linky').click(function(e) {
+			e.preventDefault();
+			$j('div#options').fadeOut('fast', function(){ 
+				$j('div#usage_level').fadeIn('slow');
+			});
+		});
+		$j('span#cancel').click(function(e) {
+			e.preventDefault();
+			$j('div#usage_level').fadeOut('fast', function() {
+				$j('div#options').fadeIn('slow');
+			});
+		});
+	});
+</script>
+<div id='options'>
+<ul>
+	<li><%= link_to "I want to view plans by cost for one country", :action => :default %></li>
+	<li><%= link_to "I want to view plans by usage level", {:action => :blah}, :id => 'linky' %></li>
+	<li><%= link_to "I want to view plans by bandwidth level", :action => :bandwidth %></li>
+</ul>
+</div>
+<div id='usage_level' style='display:none;'>
+	<ul>
+		<li><%= link_to 'I want to view plans by usage level for one country', :action => :advanced %></li>
+		<li><%= link_to 'I want to view plans by usage level for multiple countries', :action => :countries%></li>
+	</ul>
+	<span id='cancel' class='link'>Show me previous options</span>
 </div>

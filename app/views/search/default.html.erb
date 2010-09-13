@@ -1,0 +1,13 @@
+<%= render :partial => 'search_nav' %>
+<div id='search'>
+	<% form_for :search, @countries, :url => {:action => 'result'}, :method => :get do |f| %>
+	  <p>Select a country to view a comparison of the plans available for various usage levels.</p>
+	  <ul>
+			<li>
+				<%= select_tag('cid', options_for_select(@countries.map {|c| [c.country, c.id]}))%>
+			</li>
+	  </ul>
+		<%= render :partial => 'equip_select' %>
+	  <%= f.submit('Search') %>
+	<% end %>
+</div>

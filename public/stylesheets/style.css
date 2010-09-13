@@ -536,6 +536,14 @@ input[type='radio'], input[type='checkbox'] {
 	margin-left: 13px;
 }
 
-#search p {
+#search p, a.service {
 	font-weight: bold;
+}
+
+span.link {
+	text-decoration: underline;
+}
+span.link:hover {
+	text-decoration: none;
+	cursor: pointer;
 }
