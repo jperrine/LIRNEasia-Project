@@ -12,9 +12,9 @@
 				<%= select_tag('usage_level', options_for_select(@usage_levels.map {|ul| ["#{ul.name} (#{ul.amount} #{ul.unit})", ul.id]}))%>
 			</li>
 		</ul>
-	  <%= label_tag "Country: " %>
-	  <%= select_tag("country_id", options_for_select(@countries.map {|c| [c.country, c.id]})) %>
-	  <br />
+		<p>Country</p>
+		<ul><li><%= select_tag("country_id", options_for_select(@countries.map {|c| [c.country, c.id]})) %></li></ul>
+		<%= render :partial => 'provider_type' %>
 		<%= render :partial => 'equip_select' %>
 	  <%= submit_tag('Search') %>
 	<% end %>
