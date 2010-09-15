@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_filter :get_provider_type, :only => [:result, :bandwidth_results, :advanced_result, :countries_results]
 
   def help  
   end
@@ -19,7 +20,7 @@ class SearchController < ApplicationController
     equip = params[:equip]
     @graph = {}
     highest = nil
-    @country.providers.select{|p| p.provider_type == params[:provider]}.each do |port|
+    @country.providers.select{|p| p.provider_type == @provider_type}.each do |port|
       port.plans.each do |plan|
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
         if highest.nil? || @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0] > highest
@@ -27,7 +28,7 @@ class SearchController < ApplicationController
         end
       end
     end
-    @country.providers.select{|p| p.provider_type == params[:provider]}.each do |port|
+    @country.providers.select{|p| p.provider_type == @provider_type}.each do |port|
       port.plans.each do |plan|
         unless highest == @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
           @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [[highest, generate_cost(plan, highest, equip)]]
@@ -51,7 +52,7 @@ class SearchController < ApplicationController
   end
   
   def bandwidth_results
-    if params[:countries].nil? or params[:equip].nil?
+    if params[:countries].nil? or params[:equip].nil? or params[:provider].nil?
       redirect_to :action => :bandwidth and return
     end
     equip = params[:equip]
@@ -81,7 +82,7 @@ class SearchController < ApplicationController
     @lowest_usd = 0
     
     @countries.each do |country|
-      country.providers.each do |provider|
+      country.providers.select{|p| p.provider_type == @provider_type}.each do |provider|
         provider.plans.select{|p| p.speed == speed and p.speed_unit == speed_unit }.each do |plan|
           cost = generate_cost(plan, usage_mb, equip)
           cost_usd = convert_to_usd(cost, plan.provider.country.currency)
@@ -125,7 +126,7 @@ class SearchController < ApplicationController
     country = Country.find(params[:country_id])
     @plans = {}
     @lowcost, @lowplan, lowplankey = nil
-    country.providers.each do |provider|
+    country.providers.select{|p| p.provider_type == @provider_type}.each do |provider|
       provider.plans.each do |plan|
         cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
@@ -163,7 +164,6 @@ class SearchController < ApplicationController
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
     
     equip = params[:equip]
-    @provider_type = params[:provider]
     @plan_type = params[:plan]
     
     @plans = {}
@@ -272,4 +272,8 @@ class SearchController < ApplicationController
 	    end
 	    amount * rate
 	  end
+	  
+	  def get_provider_type
+      @provider_type = %w(Mobile Fixed).include?(params[:provider]) ? params[:provider] : "Mobile"
+    end
 end
