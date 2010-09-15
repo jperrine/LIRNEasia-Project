@@ -2,16 +2,17 @@
 <p>Welcome to the LCF Analyzer, please choose from the options below to proceed or click above if you know what kind of search you want.</p>
 <script type='text/javascript'>
 	$j().ready(function() {
-		$j('div#usage_level').hide();
-		$j('a#linky').click(function(e) {
+		$j('div#usage_level, div#bandwidth_level').hide();
+		$j('a.linky').click(function(e) {
 			e.preventDefault();
+			var id = "div#" + $j(this).attr('id') + "_level";
 			$j('div#options').fadeOut('fast', function(){ 
-				$j('div#usage_level').fadeIn('slow');
+				$j(id).fadeIn('slow');
 			});
 		});
 		$j('span#cancel').click(function(e) {
 			e.preventDefault();
-			$j('div#usage_level').fadeOut('fast', function() {
+			$j(this).parent().fadeOut('fast', function() {
 				$j('div#options').fadeIn('slow');
 			});
 		});
@@ -20,14 +21,21 @@
 <div id='options'>
 <ul>
 	<li><%= link_to "I want to view plans by cost for one country", :action => :default %></li>
-	<li><%= link_to "I want to view plans by usage level", {:action => :blah}, :id => 'linky' %></li>
-	<li><%= link_to "I want to view plans by bandwidth level", :action => :bandwidth %></li>
+	<li><%= link_to "I want to view plans by usage level", {:action => :index}, :id => 'usage', :class => 'linky' %></li>
+	<li><%= link_to "I want to view plans by bandwidth level", {:action => :index}, :id => 'bandwidth', :class => 'linky' %></li>
 </ul>
 </div>
 <div id='usage_level' style='display:none;'>
 	<ul>
 		<li><%= link_to 'I want to view plans by usage level for one country', :action => :advanced %></li>
-		<li><%= link_to 'I want to view plans by usage level for multiple countries', :action => :countries%></li>
+		<li><%= link_to 'I want to view plans by usage level for multiple countries', :action => :countries %></li>
 	</ul>
 	<span id='cancel' class='link'>Show me previous options</span>
+</div>
+<div id='bandwidth_level' style='display:none;'>
+	<ul>
+		<li><%= link_to 'I want to view plans by bandwidth level for one country', :action => :bandwidth %></li>
+		<li><%= link_to 'I want to view plans by bandwidth level for multiple countries', :action => :bandwidth %></li>
+	</ul>
+	<span id='cancel' class='link'>Show me previous options</span>	
 </div>
