@@ -12,15 +12,14 @@ class SearchController < ApplicationController
   end
   
   def result
-    if params[:cid].nil? or params[:equip].nil?
-      redirect_to :action => 'index' and return
+    if params[:cid].nil? or params[:equip].nil? or params[:provider].nil?
+      redirect_to :action => :default and return
     end
     @country = Country.find(params[:cid])
     equip = params[:equip]
-    
     @graph = {}
     highest = nil
-    @country.providers.each do |port|
+    @country.providers.select{|p| p.provider_type == params[:provider]}.each do |port|
       port.plans.each do |plan|
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
         if highest.nil? || @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0] > highest
@@ -28,7 +27,7 @@ class SearchController < ApplicationController
         end
       end
     end
-    @country.providers.each do |port|
+    @country.providers.select{|p| p.provider_type == params[:provider]}.each do |port|
       port.plans.each do |plan|
         unless highest == @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
           @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [[highest, generate_cost(plan, highest, equip)]]
