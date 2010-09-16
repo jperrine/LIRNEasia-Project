@@ -221,6 +221,57 @@ text-decoration: none;
 	text-align: right;
 }
 
+div.options {
+	text-align: center;
+	width: 624px;
+	margin: auto;
+}
+
+.option1, .option2, .option3 {
+	display: inline;
+	margin: 20px;
+}
+
+.option1 {
+	background-color: #0080ff;
+	border: 4px solid #0000ff;
+	width: 150px;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	color: #ffffff;
+	text-align: center;
+	float: left;
+}
+
+.option2 {
+	background-color: #ffa500;
+	border: 4px solid #ff7700;
+	width: 150px;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	color: #ffffff;
+	text-align: center;
+	float: left;
+}
+
+.option3 {
+	background-color: #dd00dd;
+	border: 4px solid #990099;
+	width: 150px;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	color: #ffffff;
+	text-align: center;
+	float: left;
+}
+
+.option1 a:link, .option1 a:active, .option1 a:visited, .option1 a:hover, .option2 a:link, .option2 a:active, .option2 a:visited, .option2 a:hover, .option3 a:link, .option3 a:active, .option3 a:visited, .option3 a:hover {
+	color: #ffffff;
+}
+
 #newcountryboxhead {
 	width: 400px;
 	background-color: #009000;
