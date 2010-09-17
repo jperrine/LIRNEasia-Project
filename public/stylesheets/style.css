@@ -234,7 +234,7 @@ div.options {
 
 .option1 {
 	background-color: #0080ff;
-	border: 4px solid #0000ff;
+	border: 4px solid #0050ff;
 	width: 150px;
 	padding: 5px;
 	font-weight: bold;
@@ -258,7 +258,7 @@ div.options {
 
 .option3 {
 	background-color: #dd00dd;
-	border: 4px solid #990099;
+	border: 4px solid #993399;
 	width: 150px;
 	padding: 5px;
 	font-weight: bold;
@@ -277,7 +277,9 @@ div.options {
 	background-color: #009000;
 	border: 4px solid #007000;
 	border-bottom: 0px;
-	padding: 5px;
+	padding: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-size: 16px;
 	font-weight: bold;
 	color: #ffffff;
@@ -293,7 +295,7 @@ div.options {
 	border-top: 0px;
 	margin: auto;
 	margin-bottom: 50px;
-	padding: 5px;
+	padding: 0px;
 	text-align: center;
 	color: #ffffff;
 	font-weight: bold;
