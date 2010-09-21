@@ -1,10 +1,10 @@
 body {
- 	background-color: #ffffff;
-  background: url('../images/background.png') fixed no-repeat;
-  margin: 15px 25px;
-  font-family: Helvetica, Arial, sans-serif;
-  color: #000000;
-  font-size: 14px;
+	background-color: #ffffff;
+	background: url('../images/background.png') fixed no-repeat;
+	margin: 15px 25px;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #000000;
+	font-size: 14px;
 } 
 
 .border {
@@ -18,7 +18,7 @@ body {
 }
 
 #logoswrapper {
-	width: 780px;
+	width: 790px;
 	margin: auto;
 	margin-bottom: 0px;
 }
@@ -32,6 +32,10 @@ body {
 	text-align: left;
 }
 
+#logoswrapper td.right {
+	text-align: right;
+}
+
 p.welcome {
 	font-style: italic;
 	color: #000000;
@@ -43,6 +47,14 @@ p.welcomeadmin {
 }
 
 #notification {
+border: 5px solid #9c9;
+background-color: #cfc;
+padding: 5px;
+margin: 10px 0;
+color: #000000;
+}
+
+#error {
 border: 5px solid #9c9;
 background-color: #cfc;
 padding: 5px;
@@ -233,8 +245,8 @@ div.options {
 }
 
 .option1 {
-	background-color: #0080ff;
-	border: 4px solid #0050ff;
+	background-color: #cccccc;
+	border: 4px solid #999999;
 	width: 150px;
 	padding: 5px;
 	font-weight: bold;
@@ -269,7 +281,7 @@ div.options {
 }
 
 .option1 a:link, .option1 a:active, .option1 a:visited, .option1 a:hover, .option2 a:link, .option2 a:active, .option2 a:visited, .option2 a:hover, .option3 a:link, .option3 a:active, .option3 a:visited, .option3 a:hover {
-	color: #ffffff;
+	color: #000000;
 }
 
 #newcountryboxhead {

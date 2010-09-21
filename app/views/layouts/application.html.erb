@@ -17,12 +17,12 @@
 	<table id="logoswrapper">
 		<tr>
 			<td rowspan="2"><%= image_tag('lirneasialogotop.png')%></td>
-			<td><%= image_tag('idrclogotop.png') %></td>
+			<td class="right"><%= image_tag('idrclogotop.png') %></td>
 		</tr>
 		<tr>
-			<td><%= image_tag('dfidlogotop.png')%></td>
+			<td class="right"><%= image_tag('dfidlogotop.png')%></td>
 		</tr>
-	</table>
+	</table><!-- logoswrapper -->
     <div id="content">
       <div id="navigation">
         <span style="color: #000000;"><%= link_to "Home", url_for(:controller => 'countries') %></span> | 
@@ -33,6 +33,9 @@
       </div>
       <% unless flash[:notice].blank? %>
          <div id="notification"><%= flash[:notice] %></div><!-- notification -->
+      <% end %>
+      <% unless flash[:error].blank? %>
+         <div id="error"><%= flash[:error] %></div><!-- error -->
       <% end %>
       <%= yield %>
     </div><!-- content -->

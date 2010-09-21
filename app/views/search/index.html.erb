@@ -21,23 +21,23 @@
 
 <div id="searchoptionscontainer" class='options'>
 <div class="option1">
-<%= link_to "By cost (1 country)", :action => :default %>
+<%= link_to "By Price", :action => :default %>
 </div>
-<div class="option2">
+<div class="option1">
 <%= link_to "By usage level", {:action => :index}, :id => 'usage', :class => 'linky' %>
 </div>
-<div class="option3">
+<div class="option1">
 <%= link_to "By bandwidth level", {:action => :index}, :id => 'bandwidth', :class => 'linky' %>
 </div>
 </div><!-- searchoptionscontainer -->
 
 <div id='usage_level' class='options' style='display:none;'>
 	<div class='option1'><%= link_to 'One country', :action => :advanced %></div>
-	<div class='option2'><%= link_to 'Multiple countries', :action => :countries %></div>
-	<div class='option3'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
+	<div class='option1'><%= link_to 'Multiple countries', :action => :countries %></div>
+	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
 </div>
 <div id='bandwidth_level' class='options' style='display:none;'>
 	<div class='option1'><%= link_to 'One country', :action => :bandwidth %></div>
-	<div class='option2'><%= link_to 'Multiple countries', :action => :bandwidth %></div>
-	<div class='option3'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
+	<div class='option1'><%= link_to 'Multiple countries', :action => :bandwidth %></div>
+	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
 </div>
