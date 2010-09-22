@@ -22,7 +22,13 @@
 	        lines: { show: true },
 	        legend: { position: 'nw'},
 	        xaxis: { title: "Usage Amount (in MB)" },
-	        yaxis: { title: "Cost in <%=h @country.currency %>" }
+	        yaxis: { title: "Cost in <%=h @country.currency %>" },
+					mouse: {
+						track: true,
+						sensibility: 5,
+						trackDecimals: 2,
+						trackFormatter: function(obj) { return "Usage = " + obj.x + ", Cost = " + obj.y; }
+					}
 	    });
 			<% position = 18 * counter %>
 			$j('div.flotr-legend table').css('position', 'relative');
