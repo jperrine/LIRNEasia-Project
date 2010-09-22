@@ -2,12 +2,9 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <%= javascript_include_tag :defaults %>
-	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
-	<script type="text/javascript">
-	  jQuery.noConflict();
-	  var $j = jQuery;
-	</script>
+	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js' %>
+	<%= javascript_include_tag 'highcharts.js' %>
+	<%= javascript_include_tag 'modules/exporting.js' %>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title>LIRNEasia</title>
   <%= stylesheet_link_tag 'style' %>

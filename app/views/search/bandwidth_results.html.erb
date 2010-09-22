@@ -1,54 +1,71 @@
-<!--[if IE]><%= javascript_include_tag "lib/excanvas" %><![endif]-->
-<%= javascript_include_tag "flotr-0.2.0-alpha" %>
 <script type="text/javascript">
-  document.observe('dom:loaded', function() {
-  	( function() {
-		  Flotr.draw(
-		    $('placeholder'),
-		    [
-					{data: [[0,0]]},
-		      <% counter = 0.5 %>
-		      <% @graph.each do |plan, cost| %>
-		        {
-		          data: [[<%= counter %> , <%= cost %> ]], 
-		          label: "<%= plan %>"
-		        },
-		        <% counter += 1 %>
-		      <% end %>
-		      {
-		        data: [[<%= counter %>, 0]]//find max cost and set 100 to that, to give the graph some depth
-		      }
-		    ],
-		    {
-		      bars: { show: true, barWidth: 0.5 },
-		      legend: { position: 'nw' },
-		      xaxis: { title: "Plans" },
-		      yaxis: { title: "Cost in USD" }
-		    }
-		  );
-		
-			<% position = 22 * (counter - 0.5) %>
-			$j('div.flotr-legend table').css('position', 'relative');
-			$j('div.flotr-legend table').css('left', 0);
-			$j('div.flotr-legend table').css('top', -<%= position %>);
-			$j('div.flotr-legend table').css('background-color', '#fff');
-			$j('div.flotr-legend table').css('border', '1px solid #000');
-			$j('div.flotr-legend-bg').hide();
-			$j('p.top').css('margin-bottom',<%= position %>);
-			$j('div.flotr-grid-label').each(function() {
-				if ($j(this).css('text-align') == 'center') {
-					$j(this).hide();
+	var chart;
+	$().ready(function() {
+		chart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'placeholder',
+				defaultSeriesType: 'column',
+				margin: [50, 50, 100, 80]
+			},
+			title: {
+				text: 'Country Usage Comparison'
+			},
+			xAxis: {
+				categories: [
+					<% @graph.each do |p,c| %>
+						'<%= p %>',
+					<% end %>
+				],
+				labels: {
+					rotation: -45,
+					align: 'right',
+					style: {
+						font: 'normal 13px Verdana, sans-serif'
+					}
 				}
-			});
-		}) ();
-  });
+			},
+			yAxis: {
+				min: 0,
+				title: { text: 'Cost in USD' }
+			},
+			legend: {
+				enabled: false
+			},
+			tooltip: {
+				formatter: function() {
+					return "<strong>" + this.x + "</strong><br />Cost: " + this.y;
+				}
+			},
+			series: [{
+				name: 'Cost',
+				data: [
+					<% @graph.each do |plan, value| %>
+						<%= value %>,
+					<% end %>
+				],
+				dataLabels: {
+					enabled: true,
+					rotation: -90,
+					color: '#FFFFFF',
+					align: 'right',
+					x: -3,
+					y: 10,
+					formatter: function() {
+						return this.y;
+					},
+					style: {
+						font: 'normal 13px Verdana, sans-serif'
+					}
+				}
+			}]
+		});
+	});
 </script>
-
 <%= render :partial => 'search_nav' %>
 <p class='top'>
 	
 </p>
-<div id='placeholder' style='width:600px;height:400px;margin:0 auto;'>
+<div id='placeholder' style='width:775px;height:400px;margin:0 auto;'>
 </div>
 <p>
 	<strong><em>NOTICE</em>:</strong> All costs for multi-country comparisons are converted to USD as a basis for comparison.

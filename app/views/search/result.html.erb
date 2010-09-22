@@ -1,50 +1,57 @@
-<!--[if IE]><%= javascript_include_tag "lib/excanvas" %><![endif]-->
-<%= javascript_include_tag "flotr-0.2.0-alpha" %>
 <script type="text/javascript">
-  document.observe('dom:loaded', function() {
-    //data is structured to be an array of arrays
-		(function() {
-    	Flotr.draw($('placeholder'), [
-	      {
-	        data: [[0,0]]//sets x,y origin to 0
-	      },
-				<% counter = 1 %>
-	      <% @graph.each do |plan, values| %>
-	        { data: [
-	        <% values.each do |usage, cost| %>
-	          [<%= usage %>, <%= cost %>],
-	        <% end %>
-	        ]
-	      , label: "<%= plan %>"},    
-					<% counter += 1 %>
-	      <% end %>
-	    ], {
-	        lines: { show: true },
-	        legend: { position: 'nw'},
-	        xaxis: { title: "Usage Amount (in MB)" },
-	        yaxis: { title: "Cost in <%=h @country.currency %>" },
-					mouse: {
-						track: true,
-						sensibility: 5,
-						trackDecimals: 2,
-						trackFormatter: function(obj) { return "Usage = " + obj.x + ", Cost = " + obj.y; }
-					}
-	    });
-			<% position = 18 * counter %>
-			$j('div.flotr-legend table').css('position', 'relative');
-			$j('div.flotr-legend table').css('left', 0);
-			$j('div.flotr-legend table').css('top', -<%= position %>);
-			$j('div.flotr-legend table').css('background-color', '#fff');
-			$j('div.flotr-legend table').css('border', '1px solid #000');
-			$j('div.flotr-legend-bg').hide();
-			$j('p.top').css('margin-bottom',<%= position %>);
-		}) ();
-  });
-	
+	var chart;
+	$().ready(function() {
+		chart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'placeholder',
+				defaultSeriesType: 'line',
+				marginRight: 130,
+				marginBottom: 25
+			},
+			title: {
+				text: 'Plan Comparison By Price',
+				x: -20 //center
+			},
+			xAxis: {
+				title: { text:'Usage Amount (in MB)' },
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			yAxis: {
+				title: { text: 'Cost in <%=h @country.currency  %>'}
+			},
+			tooltip: {
+				formatter: function() {
+					return "<strong>" + this.series.name + "</strong><br />" + this.x + ":" + this.y;
+				}
+			},
+			legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'top',
+				x: -10,
+				y: 100,
+				borderWidth: 0
+			},
+			series: [
+				<% @graph.each do |plan, values| %>
+					{name: '<%= plan %>',
+					data: [
+						<% values.each do |usage, cost| %>
+							[<%= usage %>, <%= cost %>],
+						<% end %>
+					]},
+				<% end %>
+			]
+		});
+	});	
 </script>
 <%= render :partial => 'search_nav' %>
 <p class='top'></p>
-<div id='placeholder' style='width:600px;height:300px;margin:0 auto;'>
+<div id='placeholder' style='width:775px;height:400px;margin:0 auto;'>
 </div>
 <br />
 <%= link_to "Back to Search", url_for(:action => :default)%>

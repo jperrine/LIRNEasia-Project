@@ -1,43 +1,43 @@
 <%= render :partial => 'search_nav' %>
 <p>Welcome to the LCF Analyzer, please choose from the options below to proceed or click above if you know what kind of search you want.  How would you like to view plans?</p>
 <script type='text/javascript'>
-	$j().ready(function() {
-		$j('div#usage_level, div#bandwidth_level').hide();
-		$j('a.linky').click(function(e) {
+	$().ready(function() {
+		$('#usage_level, #bandwidth_level').hide();
+		
+		$('#searchoptionscontainer a.linky').click(function(e) {
 			e.preventDefault();
-			var id = "div#" + $j(this).attr('id') + "_level";
-			$j('div#searchoptionscontainer').fadeOut('fast', function(){ 
-				$j(id).fadeIn('slow');
-			});
+			$(this).parent().parent().hide();
+			var id = "#" + $(this).attr('id') + "_level";
+			$(id).fadeIn('slow');
 		});
-		$j('span#cancel').click(function(e) {
+		
+		$('a.cancel').click(function(e) {
 			e.preventDefault();
-			$j(this).parent().fadeOut('fast', function() {
-				$j('div#searchoptionscontainer').fadeIn('slow');
-			});
+			$(this).parent().parent().hide();
+			$('#searchoptionscontainer').fadeIn('slow');
 		});
 	});
 </script>
 
 <div id="searchoptionscontainer" class='options'>
-<div class="option1">
-<%= link_to "By Price", :action => :default %>
-</div>
-<div class="option1">
-<%= link_to "By usage level", {:action => :index}, :id => 'usage', :class => 'linky' %>
-</div>
-<div class="option1">
-<%= link_to "By bandwidth level", {:action => :index}, :id => 'bandwidth', :class => 'linky' %>
-</div>
+	<div class="option1">
+		<%= link_to "By Price", :action => :default %>
+	</div>
+	<div class="option1">
+		<%= link_to "By usage level", {:action => :index}, :id => 'usage', :class => 'linky' %>
+	</div>
+	<div class="option1">
+		<%= link_to "By bandwidth level", {:action => :index}, :id => 'bandwidth', :class => 'linky' %>
+	</div>
 </div><!-- searchoptionscontainer -->
 
 <div id='usage_level' class='options' style='display:none;'>
 	<div class='option1'><%= link_to 'One country', :action => :advanced %></div>
 	<div class='option1'><%= link_to 'Multiple countries', :action => :countries %></div>
-	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
+	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :class => 'cancel' %></div>
 </div>
 <div id='bandwidth_level' class='options' style='display:none;'>
 	<div class='option1'><%= link_to 'One country', :action => :bandwidth %></div>
 	<div class='option1'><%= link_to 'Multiple countries', :action => :bandwidth %></div>
-	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :id => 'cancel' %></div>
+	<div class='option1'><%= link_to 'Previous options', {:action => :index}, :class => 'cancel' %></div>
 </div>
