@@ -55,6 +55,11 @@
 <span class="bignumber">4.</span><h1> Compare Plans</h1>
 <p>
 	Compare plans. Use the <%= link_to "Compare Plans link", url_for(:controller => 'search') %> to examine the differences between any number of fixed or mobile broadband access plans from any provider.
+	<br />
+	You will be able to select from different service features. The application will retrieve
+	the relevant information and compare the cost of plans. This will help you to find the
+	cheapest plan that meets your needs. A manual that explains key functions in more detail
+	is available here.
 </p>
 
 </div><!-- main -->
@@ -65,13 +70,29 @@
 
 <div id="addnewadmin"><span style="color:#006000; font-weight: bold; font-size: 12px;">+</span> <%= link_to("Add a New Administrator", url_for(:action => "new", :controller => 'user'))%></div><!-- addnewadmin -->
 
-<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  Click the <span style="color: #ffa500; font-weight: bold;">&#916;</span> to change the name of a country, its currency, or the current conversion rate to US Dollars.  To remove a country from the list, click <span style="color: #ff0000; font-weight: bold; font-size: 14px;">&#215;</span>.  When you are finished making changes, click the <span style="color: #ff0000;">red</span> link to log out.</div><!-- aboutpage -->
+<div id="aboutpage">
+	<span style="font-weight: bold;">About This Page:</span><br />
+	Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  Click the <span style="color: #ffa500; font-weight: bold;">&#916;</span> to change the name of a country, its currency, or the current conversion rate to US Dollars.  To remove a country from the list, click <span style="color: #ff0000; font-weight: bold; font-size: 14px;">&#215;</span>.  When you are finished making changes, click the <span style="color: #ff0000;">red</span> link to log out.
+	<p>
+		The current release is a trial version. Please provide feedback or submit any questions
+		from this webform. The project has been funded by IDRC and DFID. The web
+		application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and
+		Johannes M. Bauer, Synthesys, Inc. © 2010 LIRNEasia and Synthesys, Inc.
+	</p>
+</div><!-- aboutpage -->
 
 <% else %>
 
 <div id="login"><%= link_to "Administrator Login", url_for(:controller => "user", :action => "log_in")%></div><!-- login -->
 
-<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> link to log in.</div><!-- aboutpage -->
+<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> link to log in.<br />
+	<p>
+		The current release is a trial version. Please provide feedback or submit any questions
+		from this webform. The project has been funded by IDRC and DFID. The web
+		application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and
+		Johannes M. Bauer, Synthesys, Inc. © 2010 LIRNEasia and Synthesys, Inc.
+	</p>
+</div><!-- aboutpage -->
 
 <%end%>
 
