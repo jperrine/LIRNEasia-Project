@@ -5,7 +5,7 @@
 			chart: {
 				renderTo: 'placeholder',
 				defaultSeriesType: 'column',
-				margin: [50, 50, 100, 80]
+				margin: [50, 50, 200, 80]
 			},
 			title: {
 				text: 'Country Usage Comparison'
@@ -33,7 +33,7 @@
 			},
 			tooltip: {
 				formatter: function() {
-					return "<strong>" + this.x + "</strong><br />Cost: " + this.y;
+					return "<strong>" + this.x + "</strong><br />Cost: " + Highcharts.numberFormat(this.y, 2);
 				}
 			},
 			series: [{
@@ -65,7 +65,7 @@
 <p class='top'>
 	Results below are tested against all plans with the type <strong><%= h @plan_type %></strong> that are offered by <strong><%= h @provider_type %></strong> providers.	
 </p>
-<div id='placeholder' style='width:775px;height:400px;margin:0 auto;'>
+<div id='placeholder' style='width:775px;height:600px;margin:0 auto;'>
 </div>
 <p>
 	<strong><em>NOTICE</em>:</strong> All costs for multi-country comparisons are converted to USD as a basis for comparison.

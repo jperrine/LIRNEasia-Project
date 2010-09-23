@@ -5,7 +5,7 @@
 			chart: {
 				renderTo: 'placeholder',
 				defaultSeriesType: 'column',
-				margin: [50, 50, 100, 80]
+				margin: [50, 50, 200, 80]
 			},
 			title: {
 				text: 'Country Usage Comparison'
@@ -33,7 +33,7 @@
 			},
 			tooltip: {
 				formatter: function() {
-					return "<strong>" + this.x + "</strong><br />Cost: " + this.y;
+					return "<strong>" + this.x + "</strong><br />Cost: " + Highcharts.numberFormat(this.y, 2);
 				}
 			},
 			series: [{
@@ -65,11 +65,11 @@
 <p class='top'>
 	
 </p>
-<div id='placeholder' style='width:775px;height:400px;margin:0 auto;'>
+<div id='placeholder' style='width:775px;height:600px;margin:0 auto;'>
 </div>
 <p>
 	<strong><em>NOTICE</em>:</strong> All costs for multi-country comparisons are converted to USD as a basis for comparison.
-	Conversions are generated using <a href='http://www.webservicex.net/WCF/ServiceDetails.aspx?SID=18'>this web service</a>.
+	Conversions are generated using <a class='service' href='http://www.webservicex.net/WCF/ServiceDetails.aspx?SID=18'>this web service</a>.
 </p>
 <p>
 	

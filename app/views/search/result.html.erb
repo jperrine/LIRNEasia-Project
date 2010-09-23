@@ -5,12 +5,9 @@
 			chart: {
 				renderTo: 'placeholder',
 				defaultSeriesType: 'line',
-				marginRight: 130,
-				marginBottom: 25
 			},
 			title: {
 				text: 'Plan Comparison By Price',
-				x: -20 //center
 			},
 			xAxis: {
 				title: { text:'Usage Amount (in MB)' },
@@ -25,7 +22,7 @@
 			},
 			tooltip: {
 				formatter: function() {
-					return "<strong>" + this.series.name + "</strong><br />" + this.x + ":" + this.y;
+					return "<strong>" + this.series.name + "</strong><br /> Usage: " + this.x + ", Cost: " + Highcharts.numberFormat(this.y,2);
 				}
 			},
 			legend: {
@@ -51,7 +48,7 @@
 </script>
 <%= render :partial => 'search_nav' %>
 <p class='top'></p>
-<div id='placeholder' style='width:775px;height:400px;margin:0 auto;'>
+<div id='placeholder' style='width:775px;height:500px;margin:0 auto;'>
 </div>
 <br />
 <%= link_to "Back to Search", url_for(:action => :default)%>
