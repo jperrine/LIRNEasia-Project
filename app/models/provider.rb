@@ -4,7 +4,7 @@ class Provider < ActiveRecord::Base
   validate :no_nulls
   
   belongs_to :country
-  has_many :plans
+  has_many :plans, :dependent => :destroy
   
   def no_nulls
     self.lowcost ||= 0.00
