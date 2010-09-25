@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   before_filter :get_provider_type, :only => [:result, :bandwidth_results, :advanced_result, :countries_results]
-
+  
   def help  
   end
   
@@ -147,7 +147,7 @@ class SearchController < ApplicationController
   end
   
   def countries_results
-    if params[:usage].nil? or params[:usage_level].nil? or params[:countries].nil? or params[:equip].nil? or params[:countries].empty?
+    if params[:usage].nil? or params[:usage_level].nil? or params[:countries].nil? or params[:equip].nil?
       redirect_to :action => :countries and return
     end
     @usage = 0
@@ -236,7 +236,7 @@ class SearchController < ApplicationController
   		else
   			cost = ((plan.cost + equip_cost) + (((usage - plan_usage_cap) / overage_increments.to_f) * plan.overage)) * tax
   		end
-  		cost
+      (cost * 100).round.to_f / 100
   	end
   	
   	def convert_to_mb(usage, unit)
@@ -270,7 +270,8 @@ class SearchController < ApplicationController
 	    if match
 	      rate = match[0].gsub(/\<|\>/, '').to_f
 	    end
-	    amount * rate
+	    new_amount = amount * rate
+	    (new_amount * 100).round.to_f / 100
 	  end
 	  
 	  def get_provider_type
