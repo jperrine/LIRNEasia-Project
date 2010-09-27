@@ -31,11 +31,11 @@ class UserController < ApplicationController
         session[:user_id] = @user.id
         redirect_to :controller => 'countries'
       else
-        flash[:notice] = "Incorrect password."
+        flash[:error] = "Incorrect password."
         redirect_to :action => 'log_in'
       end
     else
-      flash[:notice] = "Unknown user."
+      flash[:error] = "Unknown user."
       redirect_to :action => 'log_in'
     end
   end

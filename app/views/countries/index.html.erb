@@ -8,18 +8,13 @@
 
 	<% for country in @countries %>
 	
-	<tr>		
-	  
+	<tr>		  
 	<td><%= link_to country.country, country %></td>
-	   
 	 	<% if session[:user_id]%>
-	  	
-		<td class="editsymbol"><%= link_to '&#916;', edit_country_path(country) %></td>
+			<td class="editsymbol"><%= link_to '&#916;', edit_country_path(country) %></td>
 	  
 			<td class="deletesymbol"><%= link_to '&#215;', country, :confirm => 'Are you sure you want to delete country?', :method => :delete %> </td>
-		
 		<%end%>
-		
 	</tr>
 	
 	<%end%>
@@ -28,39 +23,30 @@
 	
 	<% if session[:user_id] %>
 	
-	<div id="addcountry"><span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to 'Add a New Country', new_country_path %></div>
+		<div id="addcountry"><span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to 'Add a New Country', new_country_path %></div>
 	
 	<%end%>
 
 </div><!-- rightsidebar -->
 
 <div id="main">
-<p>	
-	Welcome to the broadband price analyzer. This application lets you explore prices for
-	mobile and fixed broadband service providers in the countries listed on the right. You
-	will be able to compare data in several ways. You may:
+<p>Welcome to the broadband price analyzer! This application lets you explore prices for mobile and fixed broadband service providers in the countries listed on the right. You can compare data in several ways. You may:
+<br /><br />
 </p>
-<span class="bignumber">1.</span><h1> Select a Country</h1>
+<h1> Select a Country</h1>
 <p>Use the menu on the right side of the page to choose a country/locale in which to compare broadband plans.</p>
-<br /><br />
+<br />
 
-<span class="bignumber">2.</span><h1> Choose a Provider</h1>
+<h1> Choose a Provider</h1>
 <p>Select a broadband service provider in your locale.  Depending on the location you choose, you may be offered a variety of options to choose from.</p>
-<br /><br />
+<br />
 
-<span class="bignumber">3.</span><h1> Browse</h1>
+<h1> Browse</h1>
 <p>Browse through important plan features. Browse through plans offered by each provider to find the one that fits you.</p>
-<br /><br />
+<br />
 
-<span class="bignumber">4.</span><h1> Compare Plans</h1>
-<p>
-	Compare plans. Use the <%= link_to "Compare Plans link", url_for(:controller => 'search') %> to examine the differences between any number of fixed or mobile broadband access plans from any provider.
-	<br />
-	You will be able to select from different service features. The application will retrieve
-	the relevant information and compare the cost of plans. This will help you to find the
-	cheapest plan that meets your needs. A manual that explains key functions in more detail
-	is available here.
-</p>
+<h1> Compare Plans</h1>
+<p>Use the <%= link_to "Compare Plans", url_for(:controller => 'search') %> link to examine the differences between any number of fixed or mobile broadband access plans from any provider.  You will be able to select from different service features. The application will retrieve the relevant information and compare the cost of plans.  This will help you to find the cheapest plan that meets your needs.  A manual that explains key functions in more detail is available here.</p>
 
 </div><!-- main -->
 
@@ -73,25 +59,23 @@
 <div id="aboutpage">
 	<span style="font-weight: bold;">About This Page:</span><br />
 	Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  Click the <span style="color: #ffa500; font-weight: bold;">&#916;</span> to change the name of a country, its currency, or the current conversion rate to US Dollars.  To remove a country from the list, click <span style="color: #ff0000; font-weight: bold; font-size: 14px;">&#215;</span>.  When you are finished making changes, click the <span style="color: #ff0000;">red</span> link to log out.
-	<p>
-		The current release is a trial version. Please provide feedback or submit any questions
-		from this webform. The project has been funded by IDRC and DFID. The web
-		application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and
-		Johannes M. Bauer, Synthesys, Inc. © 2010 LIRNEasia and Synthesys, Inc.
-	</p>
+<br /><br /><br />
+<p>The current release is a trial version. Please provide feedback or submit any questions from this webform. The project has been funded by IDRC and DFID. This web application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and Johannes M. Bauer, Synthesys, Inc.
+<br />
+&#169; 2010 LIRNEasia and Synthesys, Inc.</p>
+
 </div><!-- aboutpage -->
 
 <% else %>
 
 <div id="login"><%= link_to "Administrator Login", url_for(:controller => "user", :action => "log_in")%></div><!-- login -->
 
-<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> link to log in.<br />
-	<p>
-		The current release is a trial version. Please provide feedback or submit any questions
-		from this webform. The project has been funded by IDRC and DFID. The web
-		application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and
-		Johannes M. Bauer, Synthesys, Inc. © 2010 LIRNEasia and Synthesys, Inc.
-	</p>
+<div id="aboutpage"><span style="font-weight: bold;">About This Page:</span><br />Click a country name to view a profile of that country, including fixed and mobile broadband provider names.  If you are an administrator, please use the <span style="color: #0080ff;">blue</span> link to log in.<br /><br /><br />
+
+<p>The current release is a trial version. Please provide feedback or submit any questions from this webform. The project has been funded by IDRC and DFID. This web application was developed by Jimmy Perrine, Kyle Wilson, Nick Constantine, and Johannes M. Bauer, Synthesys, Inc.
+<br />
+&#169; 2010 LIRNEasia and Synthesys, Inc.</p>
+
 </div><!-- aboutpage -->
 
 <%end%>

@@ -103,12 +103,12 @@ text-decoration: none;
 }
 
 #main h1 {
-	margin: 0;
+	margin: 5px;
+	font-size: 16px;
 }
 
 #main p {
 	margin: 5px;
-	margin-left: 63px;
 	font-size: 12px;
 	color: #444444;
 }

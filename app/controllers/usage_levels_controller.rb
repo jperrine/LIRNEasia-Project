@@ -15,7 +15,7 @@ class UsageLevelsController < ApplicationController
       flash[:notice] = "Usage level was successfully created."
       redirect_to @usage_level
     else
-      flash[:notice] = "There was an error creating the usage level."
+      flash[:error] = "There was an error creating the usage level."
       render :action => 'new'
     end
   end
@@ -31,7 +31,7 @@ class UsageLevelsController < ApplicationController
       flash[:notice] = "Usage level has successfully been updated."
       redirect_to @usage_level
     else
-      flash[:notice] = "There was an error updating the usage level, please try again."
+      flash[:error] = "There was an error updating the usage level, please try again."
       render :action => 'edit'
     end
   end
@@ -42,7 +42,7 @@ class UsageLevelsController < ApplicationController
       flash[:notice] = "Usage level was deleted successfully."
       redirect_to :action => 'index'
     else
-      flash[:notice] = "There was an error deleting the usage level, please try again."
+      flash[:error] = "There was an error deleting the usage level, please try again."
       redirect_to :action => 'index'
     end
   end
