@@ -47,19 +47,19 @@ p.welcomeadmin {
 }
 
 #notification {
-border: 5px solid #9c9;
-background-color: #cfc;
-padding: 5px;
-margin: 10px 0;
-color: #000000;
+	border: 5px solid #9c9;
+	background-color: #cfc;
+	padding: 5px;
+	margin: 10px 0;
+	color: #000000;
 }
 
 #error {
-border: 5px solid #9c9;
-background-color: #cfc;
-padding: 5px;
-margin: 10px 0;
-color: #000000;
+	border: 5px solid #ff6666;
+	background-color: #ff9999;
+	padding: 5px;
+	margin: 10px 0;
+	color: #000000;
 }
 
 #content {
@@ -68,17 +68,17 @@ color: #000000;
 }
 
 .fieldWithErrors {
-border: 5px solid #f66;
+	background-color: #ff6666;
 }
 
 a:link, a:visited, a:active {
-color: #000000;
-text-decoration: none;
+	color: #000000;
+	text-decoration: none;
 }
 
 a:hover {
-color: #000000;
-text-decoration: none;
+	color: #000000;
+	text-decoration: none;
 }
 
 #main {
