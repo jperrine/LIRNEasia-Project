@@ -8,6 +8,7 @@
 			},
 			title: {
 				text: 'Plan Comparison By Price',
+				x: 5
 			},
 			xAxis: {
 				title: { text:'Usage Amount (in MB)' },
@@ -27,11 +28,12 @@
 			},
 			legend: {
 				layout: 'vertical',
-				align: 'right',
+				align: 'left',
 				verticalAlign: 'top',
-				x: -10,
-				y: 100,
-				borderWidth: 0
+				x: 1,
+				y: 1,
+				backgroundColor: '#fff',
+				borderWidth: 1
 			},
 			series: [
 				<% @graph.each do |plan, values| %>

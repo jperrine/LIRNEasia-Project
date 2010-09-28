@@ -66,7 +66,7 @@ class SearchController < ApplicationController
     
     @usage = 0
     @usage_unit = ''
-    unless params[:usage].empty?
+    unless params[:usage]
       @usage = params[:usage]
       @usage_unit = params[:usage_unit]      
     else
@@ -264,7 +264,11 @@ class SearchController < ApplicationController
 	  #takes a currency code and returns the conversion rate to USD (for comparing countries)
 	  def convert_to_usd(amount, currency)
 	    url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?ToCurrency=USD&FromCurrency=' + currency.upcase
-	    xml = Net::HTTP.get_response(URI.parse(url)).body
+	    xml = nil
+	    begin
+	      xml = Net::HTTP.get_response(URI.parse(url)).body
+	    rescue
+      end
 	    rate_regex = /\>\d+\.\d+\</
 	    match = rate_regex.match(xml)
 	    rate = 1
