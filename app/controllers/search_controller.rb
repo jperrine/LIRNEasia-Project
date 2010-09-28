@@ -152,7 +152,7 @@ class SearchController < ApplicationController
     end
     @usage = 0
     @usage_unit = ''
-    unless params[:usage].empty?
+    unless params[:usage]
       @usage = params[:usage]
       @usage_unit = params[:usage_unit]      
     else
@@ -270,7 +270,9 @@ class SearchController < ApplicationController
 	    rate = 1
 	    if match
 	      rate = match[0].gsub(/\<|\>/, '').to_f
-	    end
+	    else
+	      flash[:error] = "There was an error querying the web service for conversion, all currencies are in their native country's currency"
+      end
 	    new_amount = amount * rate
 	    (new_amount * 100).round.to_f / 100
 	  end
