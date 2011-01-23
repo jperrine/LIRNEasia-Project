@@ -263,7 +263,7 @@ class SearchController < ApplicationController
 	  
 	  #takes a currency code and returns the conversion rate to USD (for comparing countries)
 	  def convert_to_usd(amount, currency)
-	    url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?ToCurrency=USD&FromCurrency=' + currency.upcase
+	    url = "http://webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=USD&ToCurrency=#{currency.upcase}"
 	    xml = nil
 	    begin
 	      xml = Net::HTTP.get_response(URI.parse(url)).body
