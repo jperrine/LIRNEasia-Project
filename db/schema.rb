@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826175553) do
+ActiveRecord::Schema.define(:version => 20110125010238) do
 
   create_table "countries", :force => true do |t|
     t.string    "currency"
     t.string    "country"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.float     "to_usd_rate"
   end
 
   create_table "plans", :force => true do |t|

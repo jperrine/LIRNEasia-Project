@@ -85,7 +85,7 @@ class SearchController < ApplicationController
       country.providers.select{|p| p.provider_type == @provider_type}.each do |provider|
         provider.plans.select{|p| p.speed == speed and p.speed_unit == speed_unit }.each do |plan|
           cost = generate_cost(plan, usage_mb, equip)
-          cost_usd = convert_to_usd(cost, plan.provider.country.currency)
+          cost_usd = ((cost * country.to_usd_rate) * 100).round.to_f / 100 
           @graph["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
           if @lowcost.nil? or cost_usd < @lowcost
             @lowcost, @lowplan = cost, plan
@@ -174,7 +174,7 @@ class SearchController < ApplicationController
       country.providers.select {|p| p.provider_type == @provider_type }.each do |provider|
         provider.plans.select {|p| p.plan_type == @plan_type }.each do |plan|
           cost = generate_cost(plan, usage_mb, equip)
-          cost_usd = convert_to_usd(cost, plan.provider.country.currency)
+          cost_usd = ((cost * country.to_usd_rate) * 100).round.to_f / 100
           key = "#{country.country}: #{provider.name} - #{plan.name}"
           @plans[key] = cost_usd
           if @lowcost.nil? or cost_usd < @lowest_usd
@@ -259,26 +259,6 @@ class SearchController < ApplicationController
       end
 	  	values << [plan_usage_cap * 1.25, generate_cost(plan, plan_usage_cap * 1.25, equip)]
     	values
-	  end
-	  
-	  #takes a currency code and returns the conversion rate to USD (for comparing countries)
-	  def convert_to_usd(amount, currency)
-	    url = "http://webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency=#{currency.upcase}&ToCurrency=USD"
-	    xml = nil
-	    begin
-	      xml = Net::HTTP.get_response(URI.parse(url)).body
-	    rescue
-      end
-	    rate_regex = /\>\d+\.\d+\</
-	    match = rate_regex.match(xml)
-	    rate = 1
-	    if match
-	      rate = match[0].gsub(/\<|\>/, '').to_f
-	    else
-	      flash[:error] = "There was an error querying the web service for conversion, all currencies are in their native country's currency"
-      end
-	    new_amount = amount * rate
-	    (new_amount * 100).round.to_f / 100
 	  end
 	  
 	  def get_provider_type
