@@ -11,10 +11,8 @@ class Country < ActiveRecord::Base
     end
     rate_regex = /\>\d+\.\d+\</
     match = rate_regex.match(xml)
-    rate = 1
     if match
-      rate = match[0].gsub(/\<|\>/, '').to_f
+      self.to_usd_rate = match[0].gsub(/\<|\>/, '').to_f
     end
-    self.to_usd_rate = rate || 1
   end
 end
