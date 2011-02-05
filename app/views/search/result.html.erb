@@ -5,6 +5,7 @@
 			chart: {
 				renderTo: 'placeholder',
 				defaultSeriesType: 'line',
+				marginBottom: 200
 			},
 			title: {
 				text: 'Plan Comparison By Price',
@@ -27,11 +28,11 @@
 				}
 			},
 			legend: {
-				layout: 'vertical',
-				align: 'left',
-				verticalAlign: 'top',
+				layout: 'horizontal',
+				align: 'center',
+				verticalAlign: 'bottom',
 				x: 1,
-				y: 1,
+				y: -100,
 				backgroundColor: '#fff',
 				borderWidth: 1
 			},
@@ -49,8 +50,8 @@
 	});	
 </script>
 <%= render :partial => 'search_nav' %>
-<p class='top'></p>
-<div id='placeholder' style='width:775px;height:500px;margin:0 auto;'>
+<p class='top'>Click plan names in the legend to enable or disable them in the graph</p>
+<div id='placeholder' style='width:775px;height:700px;margin:0 auto;'>
 </div>
 <br />
 <%= link_to "Back to Search", url_for(:action => :default)%>
