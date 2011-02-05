@@ -24,6 +24,7 @@ body {
 }
 
 #navigation a:link, #navigation a:visited, #navigation a:active, #navigation a:hover {
+  font-size: 1.4em;
 	color: #0080ff;
 	text-decoration: underline;
 } 
