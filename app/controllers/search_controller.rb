@@ -58,8 +58,7 @@ class SearchController < ApplicationController
     equip = params[:equip]
     
     
-    @countries = []
-    params[:countries].each {|id| @countries << Country.find(id) }
+    @countries = Country.all(:conditions => ["ID in (?)", params[:countries]])
     
     speed = params[:bandwidth].split.first.to_f
     speed_unit = params[:bandwidth].split.last
