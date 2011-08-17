@@ -14,6 +14,7 @@ class UserController < ApplicationController
       flash[:notice] = "Administrator created."
       redirect_to :action => 'log_in'
     else
+      @countries = Country.all
       render :action => 'new'
     end
   end
@@ -45,6 +46,7 @@ class UserController < ApplicationController
   end
 
   def new
+    @countries = Country.all
     @user = User.new
   end
   

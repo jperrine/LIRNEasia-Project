@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110125010238) do
+ActiveRecord::Schema.define(:version => 20110817230706) do
 
   create_table "countries", :force => true do |t|
     t.string    "currency"
@@ -20,41 +20,41 @@ ActiveRecord::Schema.define(:version => 20110125010238) do
   end
 
   create_table "plans", :force => true do |t|
-    t.string   "name"
-    t.float    "cost"
-    t.float    "usage"
-    t.float    "day"
-    t.float    "night"
-    t.string   "description"
-    t.float    "overage"
-    t.string   "speed_unit"
-    t.float    "highcost"
-    t.string   "highproduct"
-    t.float    "lowcost"
-    t.string   "lowproduct"
-    t.float    "speed"
-    t.float    "tax"
-    t.integer  "provider_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "usage_unit"
-    t.string   "day_usage_unit"
-    t.string   "night_usage_unit"
-    t.string   "incremental_unit"
-    t.string   "plan_type"
-    t.float    "installation"
+    t.string    "name"
+    t.float     "cost"
+    t.float     "usage"
+    t.float     "day"
+    t.float     "night"
+    t.string    "description"
+    t.float     "overage"
+    t.string    "speed_unit"
+    t.float     "highcost"
+    t.string    "highproduct"
+    t.float     "lowcost"
+    t.string    "lowproduct"
+    t.float     "speed"
+    t.float     "tax"
+    t.integer   "provider_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "usage_unit"
+    t.string    "day_usage_unit"
+    t.string    "night_usage_unit"
+    t.string    "incremental_unit"
+    t.string    "plan_type"
+    t.float     "installation"
   end
 
   create_table "providers", :force => true do |t|
-    t.string   "name"
-    t.string   "provider_type"
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.float    "highcost"
-    t.string   "highproduct"
-    t.float    "lowcost"
-    t.string   "lowproduct"
+    t.string    "name"
+    t.string    "provider_type"
+    t.integer   "country_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.float     "highcost"
+    t.string    "highproduct"
+    t.float     "lowcost"
+    t.string    "lowproduct"
   end
 
   create_table "usage_levels", :force => true do |t|
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20110125010238) do
     t.string    "password"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "country_id"
   end
 
 end

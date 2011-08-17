@@ -6,3 +6,16 @@ class UsageLevelTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+# == Schema Information
+#
+# Table name: usage_levels
+#
+#  id         :integer         primary key
+#  name       :string(255)
+#  unit       :string(255)
+#  created_at :timestamp
+#  updated_at :timestamp
+#  amount     :decimal(, )
+#
+

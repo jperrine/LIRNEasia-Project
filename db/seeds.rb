@@ -1,8 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#   
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Major.create(:name => 'Daley', :city => cities.first)
-User.create(:name => 'admin', :password => '@dm1nP@$$')
+require 'digest/sha1'
+User.destroy_all
+
+User.create(:username => 'admin', :password => Digest::SHA1.hexdigest('@dm1nP@$$'))
+Country.all.each do |country|
+  name = country.country.downcase.gsub(/\s/, '_')
+  User.create(:username => name, :country => country, :password => Digest::SHA1.hexdigest(name))
+end

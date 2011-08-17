@@ -5,6 +5,7 @@
 <div id="authbox2">
 	<br />
 	<%= f.label :username, "Username:" %> <%= f.text_field :username %><br /><br />
+	<%= f.label :country, "Country:" %><%= f.select :country_id, @countries.collect{|c| [c.country, c.id]} %><br/><br/>
 	<%= f.label :password, "Password:" %> <%= f.password_field :password %><br /><br />
 	<%= f.label :psddword_confirmation, "Retype Password:" %><%= f.password_field :password_confirmation %><br /><br />
 	<%= submit_tag("Create Administrator")%>
