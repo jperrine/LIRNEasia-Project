@@ -17,7 +17,7 @@
 </table>
 
 <div id="addprovider">
-	<% if session[:user_id]%>	
+	<% if @logged_in_user && (@logged_in_user.country_id.nil? || @logged_in_user.country_id == @country.id)%>	
 	  <span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to "Add New Plan", url_for(:controller => 'plans', :action => 'new', :country_id => @country.id, :provider_id => @provider.id) %><br />
 <%end%>
 </div><!-- addprovider -->

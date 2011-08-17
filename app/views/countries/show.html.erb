@@ -35,7 +35,7 @@
 
 <br /><br />
 <div id="addprovider">
-	<% if session[:user_id]%>	
+	<% if @logged_in_user && (@logged_in_user.country_id.nil? || @logged_in_user.country_id == @country.id) %>	
 	  <span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to "Add a New Provider", new_country_provider_url(@country) %>
 <% end %>
 </div><!-- addprovider -->
@@ -43,7 +43,7 @@
 <br /><br /><br /><br />
 
 <hr />
-  <% if session[:user_id] %>
+  <% if @logged_in_user && (@logged_in_user.country_id.nil? || @logged_in_user.country_id == @country.id) %>
 	<span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to 'Edit This Country Profile', edit_country_path(@country) %></span><br />
 	<% end %>
 	<span style="color:#006000; font-weight:bold;font-size: 12px;">&#9650;</span> <%= link_to 'Return Home', countries_path %>

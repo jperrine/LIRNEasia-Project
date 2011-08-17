@@ -2,7 +2,7 @@
   <td>
     <%= link_to plan.name, country_provider_plan_url(@country, @provider, plan) %>
   </td>
-  <%if session[:user_id]%>
+  <%if @logged_in_user && (@logged_in_user.country_id.nil? || @logged_in_user.country_id == @country.id) %>
     <td>
       <span style="color:#ffa500; font-weight:bold;font-size: 14px;">&#916;</span> <%= link_to "Edit", edit_country_provider_plan_url(@country, @provider, plan) %>
     </td>
