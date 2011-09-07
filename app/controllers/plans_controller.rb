@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   before_filter :get_logged_in_user, :except => [:index, :show]
-  before_filter :only => [:edit, :update, :destroy, :create] do |controller| controller.authorize_user end
+  before_filter :authorize_user, :only => [:edit, :update, :destroy, :create]
     
   # GET /countries/1/providers/1/plans
   # redirects to provider's show action

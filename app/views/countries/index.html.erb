@@ -21,7 +21,7 @@
 	
 	</table>
 	
-	<% if session[:user_id] %>
+	<% if @logged_in_user && @logged_in_user.country_id.nil? %>
 	
 		<div id="addcountry"><span style="color:#006000; font-weight:bold;font-size: 16px;">+</span> <%= link_to 'Add a New Country', new_country_path %></div>
 	

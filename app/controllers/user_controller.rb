@@ -10,6 +10,9 @@ class UserController < ApplicationController
     @user = User.new(params[:user])
     @user.password = hash_password(@user.password)
     @user.password_confirmation = hash_password(@user.password_confirmation)
+    unless @logged_in_user.country_id.nil?
+      @user.country_id = @logged_in_user.country_id
+    end
     if @user.save
       flash[:notice] = "Administrator created."
       redirect_to :action => 'log_in'

@@ -1,6 +1,6 @@
 class CountriesController < ApplicationController
   before_filter :get_logged_in_user, :except => [:index, :show]
-  before_filter :only => [:edit, :update, :destroy] do |controller| controller.authorize_user end
+  before_filter :authorize_user, :only => [:new, :edit, :update, :destroy]
 
   # GET /countries/new
   def new
