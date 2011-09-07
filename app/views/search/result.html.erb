@@ -53,5 +53,9 @@
 <p class='top'>Click plan names in the legend to enable or disable them in the graph</p>
 <div id='placeholder' style='width:775px;height:700px;margin:0 auto;'>
 </div>
+<p>
+  Last update made <%= @last_update.nil? ? 'none' : @last_update.strftime('%Y-%m-%d') %>
+</p>
+
 <br />
 <%= link_to "Back to Search", url_for(:action => :default)%>

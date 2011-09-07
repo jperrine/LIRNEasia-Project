@@ -65,7 +65,9 @@
 <p class='top'></p>
 <div id='placeholder' style='width:775px;height:700px;margin:0 auto;'>
 </div>
-
+<p>
+  Last update made <%= @last_update.nil? ? 'none' : @last_update.strftime('%Y-%m-%d') %>
+</p>
 <p>
 	The most cost effective plan is <%=h @lowplan.name %>, which is offered by <%=h @lowplan.provider.name %>.
 	For using <%=h @usage %><%=h @usage_unit%>, <%=h @lowplan.name %> costs only <%= @lowcost %> <%= @lowplan.provider.country.currency %>.

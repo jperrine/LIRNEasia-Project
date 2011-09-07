@@ -68,6 +68,9 @@
 <div id='placeholder' style='width:775px;height:700px;margin:0 auto;'>
 </div>
 <p>
+  Last update made <%= @last_update.nil? ? 'none' : @last_update.strftime('%Y-%m-%d') %>
+</p>
+<p>
 	<strong><em>NOTICE</em>:</strong> All costs for multi-country comparisons are converted to USD as a basis for comparison.
 	Conversions are generated using <a class='service' href='http://www.webservicex.net/ws/WSDetails.aspx?CATID=2&WSID=10'>this web service</a>.
 </p>

@@ -20,7 +20,12 @@ class SearchController < ApplicationController
     equip = params[:equip]
     @graph = {}
     highest = nil
-    @country.providers.select{|p| p.provider_type == @provider_type}.each do |port|
+    
+    comparator = lambda { |p| p.provider_type == @provider_type }
+    
+    @last_update = @country.providers.select(&comparator).collect(&:plans).flatten.collect(&:updated_at).sort.last
+    
+    @country.providers.select(&comparator).each do |port|
       port.plans.each do |plan|
         @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] = generate_data(plan, equip)
         if highest.nil? || @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0] > highest
@@ -28,7 +33,7 @@ class SearchController < ApplicationController
         end
       end
     end
-    @country.providers.select{|p| p.provider_type == @provider_type}.each do |port|
+    @country.providers.select(&comparator).each do |port|
       port.plans.each do |plan|
         unless highest == @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"][-1][0]
           @graph["#{port.name} : #{plan.name} (#{plan.plan_type})"] += [[highest, generate_cost(plan, highest, equip)]]
@@ -77,12 +82,13 @@ class SearchController < ApplicationController
     usage_mb = convert_to_mb( @usage.to_f, @usage_unit )
     
     @graph = {}
-    @lowcost, @lowplan, lowplankey = nil
+    @last_update, @lowcost, @lowplan, lowplankey = nil
     @lowest_usd = 0
     
     @countries.each do |country|
       country.providers.select{|p| p.provider_type == @provider_type}.each do |provider|
         provider.plans.select{|p| p.speed == speed and p.speed_unit == speed_unit }.each do |plan|
+          @last_update = @last_update.nil? ? plan.updated_at : @last_update < plan.updated_at ? plan.updated_at : @last_update
           cost = generate_cost(plan, usage_mb, equip)
           cost_usd = ((cost * country.to_usd_rate) * 100).round.to_f / 100 
           @graph["#{country.country}: #{provider.name} - #{plan.name}"] = cost_usd
@@ -93,7 +99,7 @@ class SearchController < ApplicationController
           end
         end
       end
-    end 
+    end
     @lowest = @graph.select {|x,y| y == @lowcost and x != lowplankey }
     @lowcost = @lowcost.nil? ? nil : (@lowcost * 100).round.to_f / 100
   end
@@ -125,7 +131,8 @@ class SearchController < ApplicationController
     country = Country.find(params[:country_id])
     @plans = {}
     @lowcost, @lowplan, lowplankey = nil
-    country.providers.select{|p| p.provider_type == @provider_type}.each do |provider|
+    comparator = lambda {|p| p.provider_type == @provider_type}
+    country.providers.select(&comparator).each do |provider|
       provider.plans.each do |plan|
         cost = generate_cost(plan, usage_mb, params[:equip])
         @plans["#{provider.name} : #{plan.name} (#{plan.plan_type})"] = cost
@@ -135,6 +142,9 @@ class SearchController < ApplicationController
         end
       end
     end
+    
+    @last_update = country.providers.select(&comparator).collect(&:plans).flatten.collect(&:updated_at).sort.last
+    
     @lowest = @plans.select {|x,y| y == @lowcost and x != lowplankey }
     @lowcost = (@lowcost * 100).round.to_f / 100
   end
@@ -166,12 +176,13 @@ class SearchController < ApplicationController
     @plan_type = params[:plan]
     
     @plans = {}
-    @lowcost, @lowplan, lowplankey, @lowest_usd = nil
-    
+    @last_update, @lowcost, @lowplan, lowplankey, @lowest_usd = nil
+
     params[:countries].each do |id|
       country = Country.find(id)
       country.providers.select {|p| p.provider_type == @provider_type }.each do |provider|
-        provider.plans.select {|p| p.plan_type == @plan_type }.each do |plan|
+        provider.plans.select{|p| p.plan_type == @plan_type }.each do |plan|
+          @last_update = @last_update.nil? ? plan.updated_at : @last_update < plan.updated_at ? plan.updated_at : @last_update
           cost = generate_cost(plan, usage_mb, equip)
           cost_usd = ((cost * country.to_usd_rate) * 100).round.to_f / 100
           key = "#{country.country}: #{provider.name} - #{plan.name}"
